@@ -1,5 +1,9 @@
+import { DatePicker } from "antd";
+
 function App() {
-	return null;
+	console.log("E-Commerce App");
+
+	return <DatePicker />;
 }
 
 export default App;
