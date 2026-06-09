@@ -5,3 +5,11 @@
 	--color-secondary: #ffffff;
 	--color-muted: #f5f6f6;
 }
+
+.link {
+	color: #555;
+
+	&:hover {
+		color: var(--color-primary);
+	}
+}

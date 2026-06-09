@@ -1,5 +1,6 @@
 import { ConfigProvider, Layout } from "antd";
-import { Content, Footer } from "antd/es/layout/layout";
+import { Content } from "antd/es/layout/layout";
+import Footer from "./components/footer/Footer.tsx";
 import Header from "./components/header/Header.tsx";
 
 function App() {
@@ -20,7 +21,8 @@ function App() {
 				<Header />
 
 				<Content>Content</Content>
-				<Footer>Footer</Footer>
+
+				<Footer />
 			</Layout>
 		</ConfigProvider>
 	);
