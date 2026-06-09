@@ -1,3 +1,8 @@
+import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
+import { Button, ConfigProvider, Input } from "antd";
+import { categoryOptions } from "../../constants/dropdownConstants.ts";
+import Dropdown from "../dropdown/Dropdown.tsx";
+
 function HeaderPrimary() {
 	return (
 		<div
@@ -5,16 +10,81 @@ function HeaderPrimary() {
 				backgroundColor: "var(--color-secondary)",
 			}}
 		>
-			<div className="flex mx-auto max-w-4xl justify-between p-4 gap-2">
-				<span>Logo</span>
+			<div className="flex mx-auto items-center text-lg max-w-7xl justify-between p-4 gap-15">
+				<div>
+					<ShoppingCartOutlined />
+				</div>
 
-				<span>Links</span>
+				<div>
+					<Dropdown
+						items={categoryOptions ?? []}
+						defaultLabel="Category"
+						theme={{
+							labelColor: "black",
+							labelFontSize: "1.125rem",
+						}}
+					/>
+				</div>
 
-				<span>Search</span>
+				<div className="flex gap-3">
+					<Button
+						type="text"
+						style={{ fontSize: "1.125rem" }}
+					>
+						Deals
+					</Button>
 
-				<span>Account</span>
+					<Button
+						type="text"
+						style={{ fontSize: "1.125rem" }}
+					>
+						What's New
+					</Button>
 
-				<span>Cart</span>
+					<Button
+						type="text"
+						style={{ fontSize: "1.125rem" }}
+					>
+						Delivery
+					</Button>
+				</div>
+
+				<div className="flex-1">
+					<ConfigProvider
+						theme={{
+							components: {
+								Input: {
+									borderRadius: 9999,
+									inputFontSize: 16,
+									paddingBlock: 10,
+									paddingInline: 16,
+									activeBorderColor: "var(--color-primary)",
+									hoverBorderColor: "var(--color-primary)",
+								},
+							},
+						}}
+					>
+						<Input placeholder="Search Product" />
+					</ConfigProvider>
+				</div>
+
+				<div>
+					<Button
+						type="text"
+						style={{ fontSize: "1.125rem" }}
+					>
+						<UserOutlined />
+						Account
+					</Button>
+
+					<Button
+						type="text"
+						style={{ fontSize: "1.125rem" }}
+					>
+						<ShoppingCartOutlined />
+						Cart
+					</Button>
+				</div>
 			</div>
 		</div>
 	);

@@ -1,5 +1,5 @@
 import { PlusOutlined } from "@ant-design/icons";
-import { languageOptions } from "../../constans/dropdownConstants.ts";
+import { languageOptions } from "../../constants/dropdownConstants.ts";
 import Dropdown from "../dropdown/Dropdown.tsx";
 
 function HeaderSecondary() {
@@ -10,7 +10,7 @@ function HeaderSecondary() {
 			}}
 			className="w-full"
 		>
-			<div className="flex mx-auto max-w-4xl justify-between text-white px-4 py-2 gap-2">
+			<div className="flex mx-auto max-w-6xl justify-between text-white px-4 py-2 gap-2">
 				<p className="text-sm">
 					<PlusOutlined className="h-5 w-5" />
 
@@ -22,6 +22,7 @@ function HeaderSecondary() {
 				<Dropdown
 					items={languageOptions ?? []}
 					initialSelected="1"
+					defaultLabel="Select Language"
 				/>
 			</div>
 		</div>

@@ -6,17 +6,25 @@ import { useState } from "react";
 
 interface DropdownProps {
 	items: ItemType[];
-	initialSelected: string;
+	initialSelected?: string;
+	defaultLabel?: string;
+	theme?: {
+		selectedColor?: string;
+		labelColor?: string;
+		labelFontSize?: string;
+		controlItemBgActive?: string;
+		controlItemBgActiveHover?: string;
+	};
 }
 
-function Dropdown({ items, initialSelected }: DropdownProps) {
-	const [selectedKey, setSelectedKey] = useState(initialSelected);
+function Dropdown({ items, initialSelected, defaultLabel, theme }: DropdownProps) {
+	const [selectedKey, setSelectedKey] = useState(initialSelected ?? "");
 
 	const selectedItem = items.find((item) => item?.key === selectedKey);
 	const currentLabel =
 		selectedItem && "label" in selectedItem ?
 			(selectedItem.label as React.ReactNode)
-		:	"Select";
+		:	(defaultLabel ?? "Select");
 
 	const handleClick: MenuProps["onClick"] = (e) => {
 		setSelectedKey(e.key);
@@ -27,9 +35,12 @@ function Dropdown({ items, initialSelected }: DropdownProps) {
 			theme={{
 				components: {
 					Menu: {
-						colorPrimary: "white",
-						controlItemBgActive: "rgba(0,61,41,0.85)",
-						controlItemBgActiveHover: "var(--color-primary)",
+						colorPrimary: theme?.selectedColor ?? "white",
+						controlItemBgActive:
+							theme?.controlItemBgActive ?? "rgba(0,61,41,0.85)",
+						controlItemBgActiveHover:
+							theme?.controlItemBgActiveHover
+							?? "var(--color-primary)",
 					},
 				},
 			}}
@@ -42,9 +53,14 @@ function Dropdown({ items, initialSelected }: DropdownProps) {
 					onClick: handleClick,
 				}}
 			>
-				<Typography.Link style={{ color: "white" }}>
+				<Typography.Link
+					style={{
+						color: theme?.labelColor ?? "white",
+						fontSize: theme?.labelFontSize ?? "14px",
+					}}
+				>
 					<Space size={16}>
-						<span>{currentLabel}</span>
+						<span className="text-nowrap">{currentLabel}</span>
 						<DownOutlined />
 					</Space>
 				</Typography.Link>
