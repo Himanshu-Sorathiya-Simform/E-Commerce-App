@@ -1,9 +1,13 @@
-import { ConfigProvider, Layout } from "antd";
+import { Button, ConfigProvider, Layout } from "antd";
 import { Content } from "antd/es/layout/layout";
+import { useState } from "react";
 import Footer from "./components/footer/Footer.tsx";
 import Header from "./components/header/Header.tsx";
+import Sidebar from "./components/sidebar/Sidebar.tsx";
 
 function App() {
+	const [collapsed, setCollapsed] = useState(false);
+
 	return (
 		<ConfigProvider
 			theme={{
@@ -17,10 +21,24 @@ function App() {
 				},
 			}}
 		>
-			<Layout className="h-screen min-h-screen">
+			<Layout className="min-h-screen">
 				<Header />
 
-				<Content>Content</Content>
+				<Layout
+					className="overflow-hidden"
+					style={{ height: "100%" }}
+				>
+					<Sidebar collapsed={collapsed} />
+
+					<Content style={{ width: "100%" }}>
+						<Button
+							type="text"
+							onClick={() => setCollapsed(!collapsed)}
+						>
+							Collapse
+						</Button>
+					</Content>
+				</Layout>
 
 				<Footer />
 			</Layout>
