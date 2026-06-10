@@ -15,7 +15,6 @@ function Sidebar({ collapsed }: SidebarProps) {
 		<Sider
 			style={{
 				backgroundColor: "var(--color-muted)",
-				height: "100%",
 			}}
 			trigger={null}
 			collapsible
@@ -36,11 +35,7 @@ function Sidebar({ collapsed }: SidebarProps) {
 				}}
 			>
 				<Menu
-					style={{
-						height: "100%",
-					}}
-					theme="light"
-					mode="inline"
+					className="h-full"
 					defaultSelectedKeys={["1"]}
 					tooltip={{ placement: "right" }}
 					items={[

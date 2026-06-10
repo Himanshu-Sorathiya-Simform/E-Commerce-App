@@ -8,7 +8,7 @@ interface FooterItem {
 	links: FooterLink[];
 }
 
-const footerData: FooterItem[] = [
+const footerItems: FooterItem[] = [
 	{
 		title: "Department",
 		links: [
@@ -65,4 +65,4 @@ const footerData: FooterItem[] = [
 	},
 ];
 
-export { type FooterItem, type FooterLink, footerData };
+export { type FooterItem, type FooterLink, footerItems };

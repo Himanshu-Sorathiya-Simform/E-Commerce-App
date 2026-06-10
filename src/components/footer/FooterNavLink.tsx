@@ -1,4 +1,4 @@
-import type { FooterLink } from "../../constants/footerData.ts";
+import type { FooterLink } from "../../constants/footerItems.ts";
 
 interface FooterNavLinkProps {
 	link: FooterLink;

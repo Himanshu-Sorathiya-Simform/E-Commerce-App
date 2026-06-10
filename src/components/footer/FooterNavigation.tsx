@@ -1,8 +1,13 @@
-import { footerData } from "../../constants/footerData.ts";
+import { footerItems } from "../../constants/footerItems.ts";
 import FooterNavList from "./FooterNavList.tsx";
 
 function FooterNavigation() {
-	return footerData.map((navItem) => <FooterNavList navItem={navItem} />);
+	return footerItems.map((navItem) => (
+		<FooterNavList
+			key={navItem.title}
+			navItem={navItem}
+		/>
+	));
 }
 
 export default FooterNavigation;

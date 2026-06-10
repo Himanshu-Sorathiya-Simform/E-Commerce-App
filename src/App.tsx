@@ -24,10 +24,7 @@ function App() {
 			<Layout className="min-h-screen">
 				<Header />
 
-				<Layout
-					className="overflow-hidden"
-					style={{ height: "100%" }}
-				>
+				<Layout>
 					<Sidebar collapsed={collapsed} />
 
 					<Content style={{ width: "100%" }}>

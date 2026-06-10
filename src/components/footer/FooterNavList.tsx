@@ -1,5 +1,5 @@
 import { Flex } from "antd";
-import type { FooterItem } from "../../constants/footerData.ts";
+import type { FooterItem } from "../../constants/footerItems.ts";
 import FooterNavLink from "./FooterNavLink.tsx";
 
 interface FooterNavListProps {
@@ -16,7 +16,10 @@ function FooterNavList({ navItem }: FooterNavListProps) {
 
 			<ul className="flex flex-col gap-1 text-sm text-gray-600">
 				{navItem.links.map((link) => (
-					<FooterNavLink link={link} />
+					<FooterNavLink
+						key={link.label}
+						link={link}
+					/>
 				))}
 			</ul>
 		</Flex>
