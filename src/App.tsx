@@ -1,6 +1,6 @@
-import { Button, ConfigProvider, Layout } from "antd";
-import { Content } from "antd/es/layout/layout";
+import { ConfigProvider, Layout } from "antd";
 import { useState } from "react";
+import Content from "./components/content/Content.tsx";
 import Footer from "./components/footer/Footer.tsx";
 import Header from "./components/header/Header.tsx";
 import Sidebar from "./components/sidebar/Sidebar.tsx";
@@ -27,14 +27,7 @@ function App() {
 				<Layout>
 					<Sidebar collapsed={collapsed} />
 
-					<Content style={{ width: "100%" }}>
-						<Button
-							type="text"
-							onClick={() => setCollapsed(!collapsed)}
-						>
-							Collapse
-						</Button>
-					</Content>
+					<Content setCollapsed={setCollapsed} />
 				</Layout>
 
 				<Footer />
