@@ -13,6 +13,7 @@ interface SidebarProps {
 function Sidebar({ collapsed }: SidebarProps) {
 	return (
 		<Sider
+			width="15rem"
 			style={{
 				backgroundColor: "var(--color-muted)",
 			}}

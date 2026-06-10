@@ -24,6 +24,7 @@ function Content({ setCollapsed }: ContentProps) {
 			<Flex
 				wrap
 				gap="medium"
+				justify="center"
 			>
 				{productsData.products.map((product) => (
 					<ProductCard
