@@ -1,7 +1,5 @@
 import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, ConfigProvider, Input } from "antd";
-import { categoryOptions } from "../../constants/dropdownConstants.ts";
-import Dropdown from "../dropdown/Dropdown.tsx";
 
 function HeaderPrimary() {
 	return (
@@ -13,17 +11,6 @@ function HeaderPrimary() {
 			<div className="flex mx-auto items-center text-lg max-w-7xl justify-between p-4 gap-15">
 				<div>
 					<ShoppingCartOutlined />
-				</div>
-
-				<div>
-					<Dropdown
-						items={categoryOptions ?? []}
-						defaultLabel="Category"
-						theme={{
-							labelColor: "black",
-							labelFontSize: "1.125rem",
-						}}
-					/>
 				</div>
 
 				<div className="flex gap-3">

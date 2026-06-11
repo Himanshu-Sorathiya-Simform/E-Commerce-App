@@ -1,4 +1,4 @@
-import { Layout } from "antd";
+import { Flex, Layout } from "antd";
 import HeaderPrimary from "./HeaderPrimery.tsx";
 import HeaderSecondary from "./HeaderSecondary.tsx";
 
@@ -6,12 +6,19 @@ const { Header: HeaderAntD } = Layout;
 
 function Header() {
 	return (
-		<HeaderAntD>
-			<div className="flex flex-col">
+		<HeaderAntD
+			style={{
+				borderBottom: "1px solid #ddd",
+			}}
+		>
+			<Flex
+				vertical
+				gap="small"
+			>
 				<HeaderSecondary />
 
 				<HeaderPrimary />
-			</div>
+			</Flex>
 		</HeaderAntD>
 	);
 }
