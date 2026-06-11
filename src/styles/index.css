@@ -1,13 +1,59 @@
-@import "tailwindcss";
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font: inherit;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	text-wrap: balance;
+}
+
+p,
+li {
+	text-wrap: pretty;
+	max-width: 65ch;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+img,
+svg {
+	display: block;
+	max-width: 100%;
+}
+
+button {
+	outline-color: transparent;
+	background-color: transparent;
+	cursor: pointer;
+	border: none;
+}
 
 :root {
 	--color-primary: #003d29;
 	--color-secondary: #ffffff;
 	--color-muted: #f5f6f6;
-}
-
-html {
-	height: 100%;
 }
 
 .link {
