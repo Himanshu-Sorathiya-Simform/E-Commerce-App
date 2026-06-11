@@ -17,8 +17,10 @@ function Content({ setCollapsed }: ContentProps) {
 		<ContentAntD
 			style={{
 				width: "100%",
+				height: "100%",
 				position: "relative",
 				backgroundColor: "white",
+				overflowY: "scroll",
 			}}
 		>
 			<Button

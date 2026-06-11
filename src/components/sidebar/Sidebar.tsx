@@ -16,9 +16,11 @@ function Sidebar({ collapsed }: SidebarProps) {
 		<Sider
 			width="15rem"
 			style={{
+				overflowY: "scroll",
 				backgroundColor: "white",
-				position: "relative",
 				borderRight: "1px solid #ddd",
+				scrollbarWidth: "thin",
+				height: "100%",
 			}}
 			trigger={null}
 			collapsible

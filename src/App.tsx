@@ -1,7 +1,6 @@
-import { ConfigProvider, Layout } from "antd";
+import { ConfigProvider, Flex } from "antd";
 import { useState } from "react";
 import Content from "./components/content/Content.tsx";
-import Footer from "./components/footer/Footer.tsx";
 import Header from "./components/header/Header.tsx";
 import Sidebar from "./components/sidebar/Sidebar.tsx";
 import CategoriesProvider from "./context/categoriesContext.tsx";
@@ -25,17 +24,28 @@ function App() {
 						},
 					}}
 				>
-					<Layout style={{ minHeight: "100vh" }}>
-						<Header />
+					<Flex vertical>
+						<Flex
+							vertical
+							style={{ height: "100vh", overflow: "hidden" }}
+						>
+							<Header />
 
-						<Layout>
-							<Sidebar collapsed={collapsed} />
+							<Flex
+								style={{
+									height: "100%",
+									position: "relative",
+									overflow: "hidden",
+								}}
+							>
+								<Sidebar collapsed={collapsed} />
 
-							<Content setCollapsed={setCollapsed} />
-						</Layout>
+								<Content setCollapsed={setCollapsed} />
+							</Flex>
+						</Flex>
 
-						<Footer />
-					</Layout>
+						{/* <Footer /> */}
+					</Flex>
 				</ConfigProvider>
 			</ProductsProvider>
 		</CategoriesProvider>

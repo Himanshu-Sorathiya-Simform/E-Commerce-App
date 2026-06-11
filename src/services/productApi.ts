@@ -12,7 +12,7 @@ interface FetchProductResponse {
 
 async function fetchProducts() {
 	try {
-		const res = await api.get<FetchProductResponse>("/products?limit=5");
+		const res = await api.get<FetchProductResponse>("/products?limit=0");
 
 		const {
 			data: { products },
