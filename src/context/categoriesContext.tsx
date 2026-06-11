@@ -24,11 +24,10 @@ const CategoriesContext = createContext<CategoriesContext>({
 
 function CategoriesProvider({ children }: CategoriesProviderProps) {
 	const [categories, setCategories] = useState<Category[]>([]);
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
 		async function loadCategories() {
-			setIsLoading(true);
 			const categories = await fetchCategories();
 
 			setCategories(categories);

@@ -1,15 +1,10 @@
-import { Card, Flex, Typography } from "antd";
+import { Card, Flex, Image, Typography } from "antd";
+import type { DetailedProduct } from "../../types/product.types.ts";
 
 const { Title, Text, Paragraph } = Typography;
 
 interface ProductCardProps {
-	product: {
-		title: string;
-		description: string;
-		thumbnail: string;
-		price: number;
-		discountPercentage: number;
-	};
+	product: DetailedProduct;
 }
 
 function ProductCard({ product }: ProductCardProps) {
@@ -18,12 +13,14 @@ function ProductCard({ product }: ProductCardProps) {
 			style={{ width: 250 }}
 			hoverable
 			cover={
-				<img
+				<Image
 					height={250}
 					width={250}
-					draggable={false}
+					style={{ objectFit: "cover" }}
+					preview={false}
 					alt={product.title}
 					src={product.thumbnail}
+					loading="lazy"
 				/>
 			}
 		>

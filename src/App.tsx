@@ -5,36 +5,39 @@ import Footer from "./components/footer/Footer.tsx";
 import Header from "./components/header/Header.tsx";
 import Sidebar from "./components/sidebar/Sidebar.tsx";
 import CategoriesProvider from "./context/categoriesContext.tsx";
+import ProductsProvider from "./context/productsContext.tsx";
 
 function App() {
 	const [collapsed, setCollapsed] = useState(false);
 
 	return (
 		<CategoriesProvider>
-			<ConfigProvider
-				theme={{
-					components: {
-						Layout: {
-							headerBg: "var(--color-secondary)",
-							footerBg: "var(--color-secondary)",
-							headerPadding: 0,
-							headerHeight: "auto",
+			<ProductsProvider>
+				<ConfigProvider
+					theme={{
+						components: {
+							Layout: {
+								headerBg: "var(--color-secondary)",
+								footerBg: "var(--color-secondary)",
+								headerPadding: 0,
+								headerHeight: "auto",
+							},
 						},
-					},
-				}}
-			>
-				<Layout style={{ minHeight: "100vh" }}>
-					<Header />
+					}}
+				>
+					<Layout style={{ minHeight: "100vh" }}>
+						<Header />
 
-					<Layout>
-						<Sidebar collapsed={collapsed} />
+						<Layout>
+							<Sidebar collapsed={collapsed} />
 
-						<Content setCollapsed={setCollapsed} />
+							<Content setCollapsed={setCollapsed} />
+						</Layout>
+
+						<Footer />
 					</Layout>
-
-					<Footer />
-				</Layout>
-			</ConfigProvider>
+				</ConfigProvider>
+			</ProductsProvider>
 		</CategoriesProvider>
 	);
 }

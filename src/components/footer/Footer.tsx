@@ -6,7 +6,13 @@ const { Footer: FooterAntD } = Layout;
 
 function Footer() {
 	return (
-		<FooterAntD>
+		<FooterAntD
+			style={{
+				backgroundColor: "white",
+				position: "relative",
+				borderTop: "1px solid #ddd",
+			}}
+		>
 			<div
 				style={{
 					maxWidth: 1152,
