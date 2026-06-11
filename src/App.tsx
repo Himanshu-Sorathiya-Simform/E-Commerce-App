@@ -23,7 +23,7 @@ function App() {
 					},
 				}}
 			>
-				<Layout className="min-h-screen">
+				<Layout style={{ minHeight: "100vh" }}>
 					<Header />
 
 					<Layout>

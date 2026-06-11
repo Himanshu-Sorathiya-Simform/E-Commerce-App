@@ -1,5 +1,6 @@
-import { Card } from "antd";
-import { Meta } from "antd/es/list/Item";
+import { Card, Flex, Typography } from "antd";
+
+const { Title, Text, Paragraph } = Typography;
 
 interface ProductCardProps {
 	product: {
@@ -21,36 +22,52 @@ function ProductCard({ product }: ProductCardProps) {
 					height={250}
 					width={250}
 					draggable={false}
-					alt={product?.title}
-					src={product?.thumbnail}
+					alt={product.title}
+					src={product.thumbnail}
 				/>
 			}
 		>
-			<Meta
-				title={<p className="font-bold text-lg">{product?.title}</p>}
+			<Card.Meta
+				title={
+					<Title
+						level={5}
+						style={{ margin: 0 }}
+					>
+						{product.title}
+					</Title>
+				}
 				description={
-					<div className="flex flex-col  gap-2">
-						<span className="text-sm line-clamp-3">
-							{product?.description}
-						</span>
+					<Flex
+						vertical
+						gap={8}
+					>
+						<Paragraph className="line-clamp-3">
+							{product.description}
+						</Paragraph>
 
-						<span className="text-sm line-through">
-							Price: {product?.price}
-						</span>
+						<Text delete>Price: {product.price}</Text>
 
-						<span className="font-semibold  text-green-600">
-							Discount: {product?.discountPercentage}%
-						</span>
+						<Text
+							strong
+							style={{ color: "#16a34a" }}
+						>
+							Discount: {product.discountPercentage}%
+						</Text>
 
-						<span className="font-bold mt-auto text-lg">
+						<Text
+							strong
+							style={{
+								marginTop: "auto",
+								fontSize: 18,
+							}}
+						>
 							Discounted Price:{" "}
-							{product
-								&& (
-									product.price
-									- product.price / product.discountPercentage
-								).toFixed(2)}
-						</span>
-					</div>
+							{(
+								product.price
+								* (1 - product.discountPercentage / 100)
+							).toFixed(2)}
+						</Text>
+					</Flex>
 				}
 			/>
 		</Card>

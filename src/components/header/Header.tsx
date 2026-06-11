@@ -1,5 +1,5 @@
 import { Flex, Layout } from "antd";
-import HeaderPrimary from "./HeaderPrimery.tsx";
+import HeaderPrimary from "./HeaderPrimary.tsx";
 import HeaderSecondary from "./HeaderSecondary.tsx";
 
 const { Header: HeaderAntD } = Layout;

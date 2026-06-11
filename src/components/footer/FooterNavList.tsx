@@ -1,6 +1,8 @@
-import { Flex } from "antd";
+import { Flex, Typography } from "antd";
 import type { FooterItem } from "../../constants/footerItems.ts";
 import FooterNavLink from "./FooterNavLink.tsx";
+
+const { Text } = Typography;
 
 interface FooterNavListProps {
 	navItem: FooterItem;
@@ -12,16 +14,30 @@ function FooterNavList({ navItem }: FooterNavListProps) {
 			vertical
 			gap="medium"
 		>
-			<p className="font-semibold text-lg">{navItem.title}</p>
+			<Text
+				strong
+				style={{ fontSize: 18 }}
+			>
+				{navItem.title}
+			</Text>
 
-			<ul className="flex flex-col gap-1 text-sm text-gray-600">
+			<Flex
+				component="ul"
+				vertical
+				gap={4}
+				style={{
+					fontSize: 14,
+					color: "#4b5563",
+				}}
+			>
+				{" "}
 				{navItem.links.map((link) => (
 					<FooterNavLink
 						key={link.label}
 						link={link}
 					/>
 				))}
-			</ul>
+			</Flex>
 		</Flex>
 	);
 }

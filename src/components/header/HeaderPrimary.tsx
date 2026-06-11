@@ -1,5 +1,5 @@
 import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, ConfigProvider, Input } from "antd";
+import { Button, ConfigProvider, Flex, Input } from "antd";
 
 function HeaderPrimary() {
 	return (
@@ -8,12 +8,22 @@ function HeaderPrimary() {
 				backgroundColor: "var(--color-secondary)",
 			}}
 		>
-			<div className="flex mx-auto items-center text-lg max-w-7xl justify-between p-4 gap-15">
+			<Flex
+				align="center"
+				justify="space-between"
+				gap={60}
+				style={{
+					maxWidth: 1280,
+					margin: "0 auto",
+					padding: 16,
+					fontSize: 18,
+				}}
+			>
 				<div>
 					<ShoppingCartOutlined />
 				</div>
 
-				<div className="flex gap-3">
+				<Flex gap={12}>
 					<Button
 						type="text"
 						style={{ fontSize: "1.125rem" }}
@@ -34,9 +44,9 @@ function HeaderPrimary() {
 					>
 						Delivery
 					</Button>
-				</div>
+				</Flex>
 
-				<div className="flex-1">
+				<div style={{ flex: 1 }}>
 					<ConfigProvider
 						theme={{
 							components: {
@@ -72,7 +82,7 @@ function HeaderPrimary() {
 						Cart
 					</Button>
 				</div>
-			</div>
+			</Flex>
 		</div>
 	);
 }

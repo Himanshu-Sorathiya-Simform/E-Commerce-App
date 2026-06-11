@@ -11,15 +11,18 @@ interface ContentProps {
 
 function Content({ setCollapsed }: ContentProps) {
 	return (
-		<ContentAntD style={{ width: "100%", backgroundColor: "white" }}>
+		<ContentAntD
+			style={{
+				width: "100%",
+				backgroundColor: "white",
+			}}
+		>
 			<Button
 				type="text"
 				onClick={() => setCollapsed((prev) => !prev)}
 			>
 				Collapse
 			</Button>
-
-			<div></div>
 
 			<Flex
 				wrap

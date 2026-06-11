@@ -6,9 +6,9 @@ interface FooterNavLinkProps {
 
 function FooterNavLink({ link }: FooterNavLinkProps) {
 	return (
-		<li className="hover:translate-x-2 transition-all">
+		<li className="footer-nav-item">
 			<a
-				className="w-full inline-block hover:text-shadow-md link"
+				className="footer-nav-link link"
 				href={`/${link.href}`}
 			>
 				{link.label}

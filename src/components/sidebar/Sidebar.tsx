@@ -40,7 +40,7 @@ function Sidebar({ collapsed }: SidebarProps) {
 				{isLoading ?
 					<Loader />
 				:	<Menu
-						className="h-full"
+						style={{ height: "100%" }}
 						defaultSelectedKeys={["1"]}
 						tooltip={{ placement: "right" }}
 						items={categories.map((category, idx) => {

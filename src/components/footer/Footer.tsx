@@ -7,7 +7,12 @@ const { Footer: FooterAntD } = Layout;
 function Footer() {
 	return (
 		<FooterAntD>
-			<div className="max-w-6xl mx-auto">
+			<div
+				style={{
+					maxWidth: 1152,
+					margin: "0 auto",
+				}}
+			>
 				<Flex
 					gap="medium"
 					justify="space-between"
