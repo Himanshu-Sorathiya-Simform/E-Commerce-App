@@ -5,7 +5,7 @@ import {
 	useEffect,
 	useState,
 } from "react";
-import { fetchCategories } from "../api/categoryApi.ts";
+import { fetchCategories } from "../services/categoryApi.ts";
 
 interface CategoriesProviderProps {
 	children: ReactNode;
