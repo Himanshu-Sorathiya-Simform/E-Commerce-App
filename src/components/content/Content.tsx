@@ -1,6 +1,8 @@
-import { Button, Flex, Layout } from "antd";
-import type { Dispatch } from "react";
+import { Button, Flex, Layout, Modal } from "antd";
+import { type Dispatch, useState } from "react";
 import { useProducts } from "../../context/productsContext.tsx";
+import type { DetailedProduct } from "../../types/product.types.ts";
+import DetailedProductModal from "../product/DetailedProductModal.tsx";
 import ProductCard from "../product/ProductCard.tsx";
 import Loader from "../ui/Loader.tsx";
 
@@ -11,44 +13,70 @@ interface ContentProps {
 }
 
 function Content({ setCollapsed }: ContentProps) {
+	const [selectedItem, setSelectedItem] = useState<DetailedProduct | undefined>(
+		undefined,
+	);
+
 	const { products, isLoading } = useProducts();
 
-	return (
-		<ContentAntD
-			style={{
-				width: "100%",
-				height: "100%",
-				position: "relative",
-				backgroundColor: "white",
-				overflowY: "scroll",
-			}}
-		>
-			<Button
-				type="text"
-				onClick={() => setCollapsed((prev) => !prev)}
-			>
-				Collapse
-			</Button>
+	function selectItem(data: DetailedProduct) {
+		setSelectedItem(data);
+	}
 
-			<Flex
-				wrap
-				gap="medium"
-				justify="center"
+	function closeModal() {
+		setSelectedItem(undefined);
+	}
+
+	return (
+		<>
+			<ContentAntD
 				style={{
+					width: "100%",
+					height: "100%",
 					position: "relative",
+					backgroundColor: "white",
+					overflowY: "scroll",
 				}}
 			>
-				{isLoading ?
-					<Loader />
-				:	products.map((product) => (
-						<ProductCard
-							key={product.id}
-							product={product}
-						/>
-					))
-				}
-			</Flex>
-		</ContentAntD>
+				<Button
+					type="text"
+					onClick={() => setCollapsed((prev) => !prev)}
+				>
+					Collapse
+				</Button>
+
+				<Flex
+					wrap
+					gap="medium"
+					justify="center"
+					style={{
+						position: "relative",
+					}}
+				>
+					{isLoading ?
+						<Loader />
+					:	products.map((product) => (
+							<ProductCard
+								key={product.id}
+								product={product}
+								onSelectItem={selectItem}
+							/>
+						))
+					}
+				</Flex>
+			</ContentAntD>
+
+			<Modal
+				footer={null}
+				width="90%"
+				centered
+				open={Boolean(selectedItem)}
+				onCancel={closeModal}
+				mask={{ blur: true }}
+			>
+				<DetailedProductModal product={selectedItem} />
+			</Modal>
+		</>
 	);
 }
 

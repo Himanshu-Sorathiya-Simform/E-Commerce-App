@@ -5,13 +5,15 @@ const { Title, Text, Paragraph } = Typography;
 
 interface ProductCardProps {
 	product: DetailedProduct;
+	onSelectItem: (data: DetailedProduct) => void;
 }
 
-function ProductCard({ product }: ProductCardProps) {
+function ProductCard({ product, onSelectItem }: ProductCardProps) {
 	return (
 		<Card
 			style={{ width: 250 }}
 			hoverable
+			onClick={() => onSelectItem(product)}
 			cover={
 				<Image
 					height={250}
