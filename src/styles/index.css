@@ -76,3 +76,12 @@ button {
 	width: 100%;
 	display: inline-block;
 }
+
+@keyframes spin {
+	from {
+		transform: translate(-50%, 3rem) rotate(0deg);
+	}
+	to {
+		transform: translate(-50%, 3rem) rotate(360deg);
+	}
+}

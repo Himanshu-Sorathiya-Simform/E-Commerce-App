@@ -34,6 +34,9 @@ function Content({ setCollapsed }: ContentProps) {
 				wrap
 				gap="medium"
 				justify="center"
+				style={{
+					position: "relative",
+				}}
 			>
 				{isLoading ?
 					<Loader />
