@@ -1,5 +1,6 @@
 import {
 	AppstoreOutlined,
+	BorderOutlined,
 	CarFilled,
 	CarOutlined,
 	ClockCircleFilled,
@@ -26,31 +27,33 @@ import {
 import type { AntdIconProps } from "@ant-design/icons/es/components/AntdIcon";
 import type { ComponentType } from "react";
 
-const categoryIcons: ComponentType<AntdIconProps>[] = [
-	SkinOutlined,
-	GiftOutlined,
-	HomeOutlined,
-	ShoppingCartOutlined,
-	AppstoreOutlined,
-	CoffeeOutlined,
-	LaptopOutlined,
-	ManOutlined,
-	SafetyCertificateOutlined,
-	ClockCircleOutlined,
-	MobileOutlined,
-	CarOutlined,
-	HeartOutlined,
-	MobileOutlined,
-	TrophyOutlined,
-	EyeOutlined,
-	TabletOutlined,
-	TagsOutlined,
-	CarFilled,
-	CrownOutlined,
-	WomanOutlined,
-	InboxOutlined,
-	ShoppingOutlined,
-	ClockCircleFilled,
-];
+const categoryIconMap: Record<string, ComponentType<AntdIconProps>> = {
+	"beauty": SkinOutlined,
+	"fragrances": GiftOutlined,
+	"furniture": HomeOutlined,
+	"groceries": ShoppingCartOutlined,
+	"home-decoration": AppstoreOutlined,
+	"kitchen-accessories": CoffeeOutlined,
+	"laptops": LaptopOutlined,
+	"mens-shirts": ManOutlined,
+	"mens-shoes": SafetyCertificateOutlined,
+	"mens-watches": ClockCircleOutlined,
+	"mobile-accessories": MobileOutlined,
+	"motorcycle": CarOutlined,
+	"skin-care": HeartOutlined,
+	"smartphones": MobileOutlined,
+	"sports-accessories": TrophyOutlined,
+	"sunglasses": EyeOutlined,
+	"tablets": TabletOutlined,
+	"tops": TagsOutlined,
+	"vehicle": CarFilled,
+	"womens-bags": CrownOutlined,
+	"womens-dresses": WomanOutlined,
+	"womens-jewellery": InboxOutlined,
+	"womens-shoes": ShoppingOutlined,
+	"womens-watches": ClockCircleFilled,
 
-export { categoryIcons };
+	"fallback": BorderOutlined,
+};
+
+export { categoryIconMap };

@@ -1,6 +1,6 @@
 import { ConfigProvider, Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
-import { categoryIcons } from "../../constants/categoryIcons.ts";
+import { categoryIconMap } from "../../constants/categoryIcons.ts";
 import { useCategories } from "../../context/categoriesContext.tsx";
 import { formatCategory } from "../../utils/utils.ts";
 import Loader from "../ui/Loader.tsx";
@@ -45,8 +45,10 @@ function Sidebar({ collapsed }: SidebarProps) {
 						style={{ height: "100%" }}
 						defaultSelectedKeys={["1"]}
 						tooltip={{ placement: "right" }}
-						items={categories.map((category, idx) => {
-							const Icon = categoryIcons[idx];
+						items={categories.map((category) => {
+							const Icon =
+								categoryIconMap[category]
+								?? categoryIconMap["fallback"];
 
 							return {
 								key: category,
