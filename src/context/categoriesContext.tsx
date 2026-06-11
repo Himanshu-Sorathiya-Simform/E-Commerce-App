@@ -6,13 +6,14 @@ import {
 	useState,
 } from "react";
 import { fetchCategories } from "../services/categoryApi.ts";
+import type { Category } from "../types/category.types.ts";
 
 interface CategoriesProviderProps {
 	children: ReactNode;
 }
 
 interface CategoriesContext {
-	categories: string[];
+	categories: Category[];
 	isLoading: boolean;
 }
 
@@ -22,7 +23,7 @@ const CategoriesContext = createContext<CategoriesContext>({
 });
 
 function CategoriesProvider({ children }: CategoriesProviderProps) {
-	const [categories, setCategories] = useState<string[]>([]);
+	const [categories, setCategories] = useState<Category[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
