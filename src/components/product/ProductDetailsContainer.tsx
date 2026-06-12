@@ -15,6 +15,22 @@ interface ProductDetailsContainerProps {
 	product: DetailedProduct;
 }
 
+interface ProductHeaderProps {
+	product: DetailedProduct;
+}
+
+interface ProductPricingInformationProps {
+	product: DetailedProduct;
+}
+
+interface ProductActionsProps {
+	product: DetailedProduct;
+}
+
+interface ProductExtraInformationProps {
+	product: DetailedProduct;
+}
+
 function ProductDetailsContainer({ product }: ProductDetailsContainerProps) {
 	return (
 		<Col span={14}>
@@ -37,7 +53,7 @@ function ProductDetailsContainer({ product }: ProductDetailsContainerProps) {
 	);
 }
 
-function ProductHeader({ product }) {
+function ProductHeader({ product }: ProductHeaderProps) {
 	return (
 		<Flex vertical>
 			<Title>{product.title}</Title>
@@ -53,7 +69,7 @@ function ProductHeader({ product }) {
 	);
 }
 
-function ProductPricingInformation({ product }) {
+function ProductPricingInformation({ product }: ProductPricingInformationProps) {
 	return (
 		<Flex
 			vertical
@@ -104,7 +120,7 @@ function ProductPricingInformation({ product }) {
 	);
 }
 
-function ProductActions({ product }) {
+function ProductActions({ product }: ProductActionsProps) {
 	return (
 		<Flex
 			vertical
@@ -173,7 +189,7 @@ function ProductActions({ product }) {
 	);
 }
 
-function ProductExtraInformation({ product }) {
+function ProductExtraInformation({ product }: ProductExtraInformationProps) {
 	return (
 		<Flex gap="large">
 			<Flex
