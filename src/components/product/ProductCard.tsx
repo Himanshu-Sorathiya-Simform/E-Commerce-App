@@ -1,5 +1,5 @@
 import { ShoppingCartOutlined } from "@ant-design/icons";
-import { Button, Card, Flex, Image, Typography } from "antd";
+import { Badge, Button, Card, Flex, Image, Typography } from "antd";
 import type { DetailedProduct } from "../../types/product.types.ts";
 import StarRating from "../ui/StarRating.tsx";
 
@@ -7,10 +7,17 @@ const { Title, Text, Paragraph } = Typography;
 
 interface ProductCardProps {
 	product: DetailedProduct;
+	cartQuantity: number;
 	onSelectItem: (data: DetailedProduct) => void;
+	addToCart: (productId: number) => void;
 }
 
-function ProductCard({ product, onSelectItem }: ProductCardProps) {
+function ProductCard({
+	product,
+	cartQuantity,
+	onSelectItem,
+	addToCart,
+}: ProductCardProps) {
 	return (
 		<Card
 			className="line-clamp-3"
@@ -119,9 +126,22 @@ function ProductCard({ product, onSelectItem }: ProductCardProps) {
 							size="small"
 						/>
 
-						<Button shape="round">
-							Add to Cart <ShoppingCartOutlined />
-						</Button>
+						<Badge
+							count={cartQuantity}
+							overflowCount={10}
+						>
+							<Button
+								size="large"
+								shape="round"
+								onClick={(e) => {
+									e.stopPropagation();
+
+									addToCart(product.id);
+								}}
+							>
+								Add to Cart <ShoppingCartOutlined />
+							</Button>
+						</Badge>
 					</Flex>
 				}
 			/>

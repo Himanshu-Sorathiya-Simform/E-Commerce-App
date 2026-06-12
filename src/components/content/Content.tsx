@@ -1,5 +1,6 @@
 import { Button, Flex, Layout, Modal } from "antd";
 import { type Dispatch, useState } from "react";
+import { useCart } from "../../context/cartContext.tsx";
 import { useProducts } from "../../context/productsContext.tsx";
 import type { DetailedProduct } from "../../types/product.types.ts";
 import DetailedProductModal from "../product/DetailedProductModal.tsx";
@@ -18,6 +19,7 @@ function Content({ setCollapsed }: ContentProps) {
 	);
 
 	const { products, isLoading } = useProducts();
+	const { cart, addToCart } = useCart();
 
 	function selectItem(data: DetailedProduct) {
 		setSelectedItem(data);
@@ -56,13 +58,21 @@ function Content({ setCollapsed }: ContentProps) {
 				>
 					{isLoading ?
 						<Loader />
-					:	products.map((product) => (
-							<ProductCard
-								key={product.id}
-								product={product}
-								onSelectItem={selectItem}
-							/>
-						))
+					:	products.map((product) => {
+							const cartItem = cart.find(
+								(c) => c.productId === product.id,
+							);
+
+							return (
+								<ProductCard
+									key={product.id}
+									product={product}
+									cartQuantity={cartItem?.quantity ?? 0}
+									onSelectItem={selectItem}
+									addToCart={addToCart}
+								/>
+							);
+						})
 					}
 				</Flex>
 			</ContentAntD>

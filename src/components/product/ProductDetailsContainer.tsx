@@ -6,6 +6,7 @@ import {
 	UndoOutlined,
 } from "@ant-design/icons";
 import { Button, Col, Divider, Flex, Space, Typography } from "antd";
+import { useCart } from "../../context/cartContext.tsx";
 import type { DetailedProduct } from "../../types/product.types.ts";
 import StarRating from "../ui/StarRating.tsx";
 
@@ -121,10 +122,15 @@ function ProductPricingInformation({ product }: ProductPricingInformationProps) 
 }
 
 function ProductActions({ product }: ProductActionsProps) {
+	const { cart, addToCart, removeFromCart } = useCart();
+
+	const productCartQuantity =
+		cart.find((c) => c.productId === product.id)?.quantity ?? 0;
+
 	return (
 		<Flex
 			vertical
-			gap="small"
+			gap="middle"
 		>
 			<Flex
 				gap="large"
@@ -136,19 +142,21 @@ function ProductActions({ product }: ProductActionsProps) {
 							borderStartStartRadius: "9999px",
 							borderEndStartRadius: "9999px",
 						}}
+						onClick={() => removeFromCart(product.id)}
 						icon={<MinusOutlined />}
 					/>
 					<Button
 						disabled
 						style={{ color: "#000", cursor: "default" }}
 					>
-						0
+						{productCartQuantity}
 					</Button>
 					<Button
 						style={{
 							borderStartEndRadius: "9999px",
 							borderEndEndRadius: "9999px",
 						}}
+						onClick={() => addToCart(product.id)}
 						icon={<PlusOutlined />}
 					/>
 				</Space.Compact>
@@ -169,6 +177,7 @@ function ProductActions({ product }: ProductActionsProps) {
 					<Text>Don't miss out!</Text>
 				</Flex>
 			</Flex>
+
 			<Flex gap="middle">
 				<Button
 					size="large"
@@ -181,6 +190,7 @@ function ProductActions({ product }: ProductActionsProps) {
 				<Button
 					size="large"
 					shape="round"
+					onClick={() => addToCart(product.id)}
 				>
 					Add to Cart
 				</Button>
