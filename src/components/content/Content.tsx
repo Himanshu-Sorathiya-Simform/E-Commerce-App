@@ -69,13 +69,13 @@ function Content({ setCollapsed }: ContentProps) {
 
 			<Modal
 				footer={null}
-				width="90%"
+				width="70%"
 				centered
 				open={Boolean(selectedItem)}
 				onCancel={closeModal}
 				mask={{ blur: true }}
 				style={{
-					height: "80vh",
+					maxHeight: "80vh",
 					overflow: "hidden",
 				}}
 				destroyOnHidden
