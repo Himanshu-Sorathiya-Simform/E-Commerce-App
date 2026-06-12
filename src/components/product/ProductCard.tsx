@@ -13,26 +13,42 @@ function ProductCard({ product, onSelectItem }: ProductCardProps) {
 	return (
 		<Card
 			className="line-clamp-3"
-			style={{ width: 250 }}
+			style={{ flex: 1, minWidth: 250 }}
 			hoverable
 			onClick={() => onSelectItem(product)}
 			cover={
-				<Image
-					height={250}
-					width={250}
-					style={{ objectFit: "cover" }}
-					preview={false}
-					alt={product.title}
-					src={product.thumbnail}
-					loading="lazy"
-				/>
+				<Flex
+					justify="center"
+					align="center"
+					style={{ width: "100%", display: "block", textAlign: "center" }}
+				>
+					<Image
+						style={{
+							borderRadius: 16,
+							backgroundColor: "rgba(0,0,0,0.1)",
+							objectFit: "cover",
+							display: "inline-block",
+							width: "100%",
+							aspectRatio: 1,
+						}}
+						preview={false}
+						alt={product.title}
+						src={product.thumbnail}
+						loading="lazy"
+					/>
+				</Flex>
 			}
 		>
 			<Card.Meta
 				title={
 					<Title
 						level={5}
-						style={{ margin: 0 }}
+						style={{
+							overflow: "hidden",
+							textOverflow: "ellipsis",
+							whiteSpace: "nowrap",
+							margin: 0,
+						}}
 					>
 						{product.title}
 					</Title>
@@ -42,19 +58,35 @@ function ProductCard({ product, onSelectItem }: ProductCardProps) {
 						vertical
 						gap={8}
 					>
-						<Text
-							strong
-							style={{
-								marginTop: "auto",
-								fontSize: 20,
-							}}
+						<Flex
+							gap="small"
+							align="center"
 						>
-							$
-							{(
-								product.price
-								* (1 - product.discountPercentage / 100)
-							).toFixed(2)}
-						</Text>
+							<Text
+								strong
+								style={{
+									fontSize: 24,
+								}}
+							>
+								$
+								{(
+									product.price
+									* (1 - product.discountPercentage / 100)
+								).toFixed(2)}
+							</Text>
+
+							<Text
+								strong
+								style={{
+									fontSize: 16,
+									color: "#888",
+									textDecoration: "line-through",
+									verticalAlign: "middle",
+								}}
+							>
+								${product.price}
+							</Text>
+						</Flex>
 
 						<Paragraph
 							style={{

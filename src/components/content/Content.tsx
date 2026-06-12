@@ -51,6 +51,7 @@ function Content({ setCollapsed }: ContentProps) {
 					justify="center"
 					style={{
 						position: "relative",
+						padding: "2rem 3rem",
 					}}
 				>
 					{isLoading ?
