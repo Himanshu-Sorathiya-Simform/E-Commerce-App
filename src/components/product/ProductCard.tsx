@@ -75,7 +75,6 @@ function ProductCard({
 								style={{
 									fontSize: 14,
 									color: "#3dd629",
-									fontWeight: "lighter",
 								}}
 							>
 								{product.discountPercentage}% off
@@ -113,7 +112,7 @@ function ProductCard({
 
 						<Paragraph
 							style={{
-								fontWeight: "100",
+								fontWeight: "400",
 							}}
 							className="line-clamp-3"
 						>

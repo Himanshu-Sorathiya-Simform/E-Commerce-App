@@ -5,12 +5,19 @@
 	font: inherit;
 }
 
+@font-face {
+	font-family: "General Sans";
+	src: url("../assets/fonts/GeneralSans.ttf") format("truetype");
+}
+
 html {
 	height: 100%;
 }
 
 body {
 	line-height: 1.5;
+	font-family: "General Sans", Arial, Helvetica, sans-serif;
+	font-weight: 500;
 }
 
 h1,

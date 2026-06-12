@@ -18,6 +18,8 @@ function App() {
 						theme={{
 							token: {
 								colorPrimary: "#003d29",
+								fontFamily:
+									'"General Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
 							},
 							components: {
 								Layout: {

@@ -1,5 +1,5 @@
-function formatCategory(str) {
-	return str
+function formatCategory(str: string) {
+	return String(str)
 		.split("-")
 		.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
 		.join(" ");

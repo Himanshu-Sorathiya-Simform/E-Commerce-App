@@ -138,6 +138,7 @@ function ProductActions({ product }: ProductActionsProps) {
 			>
 				<Space.Compact>
 					<Button
+						size="large"
 						style={{
 							borderStartStartRadius: "9999px",
 							borderEndStartRadius: "9999px",
@@ -146,12 +147,19 @@ function ProductActions({ product }: ProductActionsProps) {
 						icon={<MinusOutlined />}
 					/>
 					<Button
+						size="large"
 						disabled
-						style={{ color: "#000", cursor: "default" }}
+						style={{
+							color: "#000",
+							cursor: "default",
+							fontWeight: "600",
+							fontSize: "18px",
+						}}
 					>
 						{productCartQuantity}
 					</Button>
 					<Button
+						size="large"
 						style={{
 							borderStartEndRadius: "9999px",
 							borderEndEndRadius: "9999px",
@@ -183,6 +191,9 @@ function ProductActions({ product }: ProductActionsProps) {
 					size="large"
 					shape="round"
 					type="primary"
+					style={{
+						fontWeight: "500",
+					}}
 				>
 					Buy Now
 				</Button>
@@ -190,6 +201,9 @@ function ProductActions({ product }: ProductActionsProps) {
 				<Button
 					size="large"
 					shape="round"
+					style={{
+						fontWeight: "500",
+					}}
 					onClick={() => addToCart(product.id)}
 				>
 					Add to Cart
@@ -222,7 +236,6 @@ function ProductExtraInformation({ product }: ProductExtraInformationProps) {
 				<Text
 					style={{
 						fontSize: "14px",
-						fontWeight: "lighter",
 						color: "#888",
 					}}
 				>
@@ -248,7 +261,6 @@ function ProductExtraInformation({ product }: ProductExtraInformationProps) {
 				<Text
 					style={{
 						fontSize: "14px",
-						fontWeight: "lighter",
 						color: "#888",
 					}}
 				>
@@ -274,7 +286,6 @@ function ProductExtraInformation({ product }: ProductExtraInformationProps) {
 				<Text
 					style={{
 						fontSize: "14px",
-						fontWeight: "lighter",
 						color: "#888",
 					}}
 				>
