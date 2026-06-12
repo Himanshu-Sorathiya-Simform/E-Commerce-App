@@ -1,11 +1,10 @@
-import { ConfigProvider, Flex, Menu } from "antd";
+import { ConfigProvider, Flex, Menu, Skeleton } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { useState } from "react";
 import { categoryIconMap } from "../../constants/categoryIcons.ts";
 import { useCategories } from "../../context/categoriesContext.tsx";
 import { useProducts } from "../../context/productsContext.tsx";
 import { formatCategory } from "../../utils/utils.ts";
-import Loader from "../ui/Loader.tsx";
 
 interface SidebarProps {
 	collapsed: boolean;
@@ -68,8 +67,30 @@ function Sidebar({ collapsed }: SidebarProps) {
 				}}
 			>
 				{isLoading ?
-					<Flex justify="center">
-						<Loader />
+					<Flex
+						justify="center"
+						vertical
+						style={{
+							padding: "0.5rem 0 0 0.5rem",
+						}}
+					>
+						{Array.from({ length: 24 }).map((_, i) => (
+							<Skeleton
+								key={i}
+								active
+								paragraph={{ rows: 0 }}
+								style={{
+									marginBottom: "0.25rem",
+								}}
+								title={{
+									width: "100%",
+								}}
+								styles={{
+									title: { height: "2.5rem" },
+									paragraph: { margin: 0, padding: 0 },
+								}}
+							/>
+						))}
 					</Flex>
 				:	<Menu
 						style={{ height: "100%" }}
