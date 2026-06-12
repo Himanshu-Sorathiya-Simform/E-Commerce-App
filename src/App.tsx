@@ -14,6 +14,9 @@ function App() {
 			<ProductsProvider>
 				<ConfigProvider
 					theme={{
+						token: {
+							colorPrimary: "#003d29",
+						},
 						components: {
 							Layout: {
 								headerBg: "var(--color-secondary)",

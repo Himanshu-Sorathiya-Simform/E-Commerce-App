@@ -74,6 +74,7 @@ function Content({ setCollapsed }: ContentProps) {
 				open={Boolean(selectedItem)}
 				onCancel={closeModal}
 				mask={{ blur: true }}
+				destroyOnHidden
 			>
 				<DetailedProductModal product={selectedItem} />
 			</Modal>

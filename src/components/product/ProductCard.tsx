@@ -1,4 +1,5 @@
-import { Card, Flex, Image, Typography } from "antd";
+import { ShoppingCartOutlined } from "@ant-design/icons";
+import { Button, Card, Flex, Image, Typography } from "antd";
 import type { DetailedProduct } from "../../types/product.types.ts";
 import StarRating from "../ui/StarRating.tsx";
 
@@ -58,34 +59,47 @@ function ProductCard({ product, onSelectItem }: ProductCardProps) {
 						vertical
 						gap={8}
 					>
-						<Flex
-							gap="small"
-							align="center"
-						>
+						<Flex vertical>
 							<Text
 								strong
 								style={{
-									fontSize: 24,
+									fontSize: 14,
+									color: "#3dd629",
+									fontWeight: "lighter",
 								}}
 							>
-								$
-								{(
-									product.price
-									* (1 - product.discountPercentage / 100)
-								).toFixed(2)}
+								{product.discountPercentage}% off
 							</Text>
 
-							<Text
-								strong
-								style={{
-									fontSize: 16,
-									color: "#888",
-									textDecoration: "line-through",
-									verticalAlign: "middle",
-								}}
+							<Flex
+								gap="middle"
+								align="center"
 							>
-								${product.price}
-							</Text>
+								<Text
+									strong
+									style={{
+										fontSize: 24,
+									}}
+								>
+									$
+									{(
+										product.price
+										* (1 - product.discountPercentage / 100)
+									).toFixed(2)}
+								</Text>
+
+								<Text
+									strong
+									style={{
+										fontSize: 16,
+										color: "#888",
+										textDecoration: "line-through",
+										verticalAlign: "middle",
+									}}
+								>
+									${product.price}
+								</Text>
+							</Flex>
 						</Flex>
 
 						<Paragraph
@@ -102,6 +116,10 @@ function ProductCard({ product, onSelectItem }: ProductCardProps) {
 							reviewsCount={product.reviews.length}
 							size="small"
 						/>
+
+						<Button shape="round">
+							Add to Cart <ShoppingCartOutlined />
+						</Button>
 					</Flex>
 				}
 			/>
