@@ -1,5 +1,6 @@
 import { Card, Flex, Image, Typography } from "antd";
 import type { DetailedProduct } from "../../types/product.types.ts";
+import StarRating from "../ui/StarRating.tsx";
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -11,6 +12,7 @@ interface ProductCardProps {
 function ProductCard({ product, onSelectItem }: ProductCardProps) {
 	return (
 		<Card
+			className="line-clamp-3"
 			style={{ width: 250 }}
 			hoverable
 			onClick={() => onSelectItem(product)}
@@ -40,32 +42,34 @@ function ProductCard({ product, onSelectItem }: ProductCardProps) {
 						vertical
 						gap={8}
 					>
-						<Paragraph className="line-clamp-3">
-							{product.description}
-						</Paragraph>
-
-						<Text delete>Price: {product.price}</Text>
-
-						<Text
-							strong
-							style={{ color: "#16a34a" }}
-						>
-							Discount: {product.discountPercentage}%
-						</Text>
-
 						<Text
 							strong
 							style={{
 								marginTop: "auto",
-								fontSize: 18,
+								fontSize: 20,
 							}}
 						>
-							Discounted Price:{" "}
+							$
 							{(
 								product.price
 								* (1 - product.discountPercentage / 100)
 							).toFixed(2)}
 						</Text>
+
+						<Paragraph
+							style={{
+								fontWeight: "100",
+							}}
+							className="line-clamp-3"
+						>
+							{product.description}
+						</Paragraph>
+
+						<StarRating
+							rating={product.rating}
+							reviewsCount={product.reviews.length}
+							size="small"
+						/>
 					</Flex>
 				}
 			/>
