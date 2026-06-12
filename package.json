@@ -12,7 +12,7 @@
 	},
 	"dependencies": {
 		"@ant-design/icons": "~6.2.5",
-		"@himanshu-sorathiya/react-kit": "^1.0.4",
+		"@himanshu-sorathiya/react-kit": "^1.0.6",
 		"antd": "^6.4.3",
 		"axios": "^1.17.0",
 		"react": "^19.2.6",

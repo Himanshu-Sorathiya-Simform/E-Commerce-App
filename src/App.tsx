@@ -3,6 +3,7 @@ import { useState } from "react";
 import Content from "./components/content/Content.tsx";
 import Header from "./components/header/Header.tsx";
 import Sidebar from "./components/sidebar/Sidebar.tsx";
+import CartProvider from "./context/cartContext.tsx";
 import CategoriesProvider from "./context/categoriesContext.tsx";
 import ProductsProvider from "./context/productsContext.tsx";
 
@@ -12,44 +13,46 @@ function App() {
 	return (
 		<CategoriesProvider>
 			<ProductsProvider>
-				<ConfigProvider
-					theme={{
-						token: {
-							colorPrimary: "#003d29",
-						},
-						components: {
-							Layout: {
-								headerBg: "var(--color-secondary)",
-								footerBg: "var(--color-secondary)",
-								headerPadding: 0,
-								headerHeight: "auto",
+				<CartProvider>
+					<ConfigProvider
+						theme={{
+							token: {
+								colorPrimary: "#003d29",
 							},
-						},
-					}}
-				>
-					<Flex vertical>
-						<Flex
-							vertical
-							style={{ height: "100vh", overflow: "hidden" }}
-						>
-							<Header />
-
+							components: {
+								Layout: {
+									headerBg: "var(--color-secondary)",
+									footerBg: "var(--color-secondary)",
+									headerPadding: 0,
+									headerHeight: "auto",
+								},
+							},
+						}}
+					>
+						<Flex vertical>
 							<Flex
-								style={{
-									height: "100%",
-									position: "relative",
-									overflow: "hidden",
-								}}
+								vertical
+								style={{ height: "100vh", overflow: "hidden" }}
 							>
-								<Sidebar collapsed={collapsed} />
+								<Header />
 
-								<Content setCollapsed={setCollapsed} />
+								<Flex
+									style={{
+										height: "100%",
+										position: "relative",
+										overflow: "hidden",
+									}}
+								>
+									<Sidebar collapsed={collapsed} />
+
+									<Content setCollapsed={setCollapsed} />
+								</Flex>
 							</Flex>
-						</Flex>
 
-						{/* <Footer /> */}
-					</Flex>
-				</ConfigProvider>
+							{/* <Footer /> */}
+						</Flex>
+					</ConfigProvider>
+				</CartProvider>
 			</ProductsProvider>
 		</CategoriesProvider>
 	);

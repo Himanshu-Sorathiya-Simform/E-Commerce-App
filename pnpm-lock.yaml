@@ -11,8 +11,8 @@ importers:
                 specifier: ~6.2.5
                 version: 6.2.5(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
             "@himanshu-sorathiya/react-kit":
-                specifier: ^1.0.4
-                version: 1.0.5(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+                specifier: ^1.0.6
+                version: 1.0.6(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
             antd:
                 specifier: ^6.4.3
                 version: 6.4.3(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
@@ -424,10 +424,10 @@ packages:
             }
         engines: { node: ^20.19.0 || ^22.13.0 || >=24 }
 
-    "@himanshu-sorathiya/react-kit@1.0.5":
+    "@himanshu-sorathiya/react-kit@1.0.6":
         resolution:
             {
-                integrity: sha512-B1gB75cqPvEk1cZVKSGceX+JqTMHYlgfhZ5MKmn1dsOmBv3ZoPqdorgBQJISz7IuFEZq9ZlzCzmJ6yUHovWmLQ==,
+                integrity: sha512-ppTN1h0/8KJacPsKPTFDnGrKpuyddWofaDTcmh7bxmSki9xu1mGnJ1lx0n8nm5Rn0g7lir07uLrPi9mpJthjmQ==,
             }
         peerDependencies:
             react: ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -2791,7 +2791,7 @@ snapshots:
             "@eslint/core": 1.2.1
             levn: 0.4.1
 
-    "@himanshu-sorathiya/react-kit@1.0.5(react-dom@19.2.7(react@19.2.7))(react@19.2.7)":
+    "@himanshu-sorathiya/react-kit@1.0.6(react-dom@19.2.7(react@19.2.7))(react@19.2.7)":
         dependencies:
             "@tanstack/react-store": 0.11.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
             react: 19.2.7
