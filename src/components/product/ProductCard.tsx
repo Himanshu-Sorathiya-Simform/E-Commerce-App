@@ -50,6 +50,9 @@ function ProductCard({ product, onSelectItem }: ProductCardProps) {
 							whiteSpace: "nowrap",
 							margin: 0,
 						}}
+						ellipsis={{
+							tooltip: product.title,
+						}}
 					>
 						{product.title}
 					</Title>
@@ -94,7 +97,6 @@ function ProductCard({ product, onSelectItem }: ProductCardProps) {
 										fontSize: 16,
 										color: "#888",
 										textDecoration: "line-through",
-										verticalAlign: "middle",
 									}}
 								>
 									${product.price}
