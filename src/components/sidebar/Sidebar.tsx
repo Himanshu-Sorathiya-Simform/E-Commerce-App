@@ -1,4 +1,4 @@
-import { ConfigProvider, Menu } from "antd";
+import { ConfigProvider, Flex, Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { useState } from "react";
 import { categoryIconMap } from "../../constants/categoryIcons.ts";
@@ -48,6 +48,7 @@ function Sidebar({ collapsed }: SidebarProps) {
 				borderRight: "1px solid #ddd",
 				scrollbarWidth: "thin",
 				height: "100%",
+				width: "100%",
 			}}
 			trigger={null}
 			collapsible
@@ -67,7 +68,9 @@ function Sidebar({ collapsed }: SidebarProps) {
 				}}
 			>
 				{isLoading ?
-					<Loader />
+					<Flex justify="center">
+						<Loader />
+					</Flex>
 				:	<Menu
 						style={{ height: "100%" }}
 						tooltip={{ placement: "right" }}
