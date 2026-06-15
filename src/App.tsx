@@ -34,7 +34,10 @@ function App() {
 						<Flex vertical>
 							<Flex
 								vertical
-								style={{ height: "100vh", overflow: "hidden" }}
+								style={{
+									height: "100vh",
+									overflow: "hidden",
+								}}
 							>
 								<Header />
 

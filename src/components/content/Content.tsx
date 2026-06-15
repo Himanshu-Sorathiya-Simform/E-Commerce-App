@@ -5,7 +5,7 @@ import { useProducts } from "../../context/productsContext.tsx";
 import type { DetailedProduct } from "../../types/product.types.ts";
 import DetailedProductModal from "../product/DetailedProductModal.tsx";
 import ProductCard from "../product/ProductCard.tsx";
-import Loader from "../ui/Loader.tsx";
+import ProductCardSkeleton from "../product/ProductCardSkeleton.tsx";
 
 const { Content: ContentAntD } = Layout;
 
@@ -36,7 +36,7 @@ function Content({ setCollapsed }: ContentProps) {
 					width: "100%",
 					height: "100%",
 					position: "relative",
-					backgroundColor: "white",
+					backgroundColor: "#f1f1f1",
 					overflowY: "scroll",
 				}}
 			>
@@ -57,7 +57,9 @@ function Content({ setCollapsed }: ContentProps) {
 					}}
 				>
 					{isLoading ?
-						<Loader />
+						Array.from({ length: 12 }).map((_, i) => (
+							<ProductCardSkeleton key={i} />
+						))
 					:	products.map((product) => {
 							const cartItem = cart.find(
 								(c) => c.productId === product.id,
