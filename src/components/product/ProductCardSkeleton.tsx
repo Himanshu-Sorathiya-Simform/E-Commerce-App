@@ -17,7 +17,12 @@ function ProductCardSkeleton() {
 			<Flex
 				justify="center"
 				align="center"
-				style={{ width: "100%", display: "block", textAlign: "center" }}
+				style={{
+					width: "100%",
+					display: "block",
+					padding: 12,
+					textAlign: "center",
+				}}
 			>
 				<Skeleton.Image
 					active

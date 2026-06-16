@@ -36,7 +36,7 @@ function Content({ setCollapsed }: ContentProps) {
 					width: "100%",
 					height: "100%",
 					position: "relative",
-					backgroundColor: "#f1f1f1",
+					backgroundColor: "#f2f2f2",
 					overflowY: "scroll",
 				}}
 			>

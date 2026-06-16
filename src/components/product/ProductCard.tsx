@@ -1,5 +1,5 @@
 import { ShoppingCartOutlined } from "@ant-design/icons";
-import { Badge, Button, Card, Flex, Image, Typography } from "antd";
+import { Badge, Button, Card, Flex, Image, Skeleton, Typography } from "antd";
 import type { DetailedProduct } from "../../types/product.types.ts";
 import StarRating from "../ui/StarRating.tsx";
 
@@ -20,7 +20,6 @@ function ProductCard({
 }: ProductCardProps) {
 	return (
 		<Card
-			className="line-clamp-3"
 			style={{ flex: 1, minWidth: 250 }}
 			hoverable
 			onClick={() => onSelectItem(product)}
@@ -28,17 +27,38 @@ function ProductCard({
 				<Flex
 					justify="center"
 					align="center"
-					style={{ width: "100%", display: "block", textAlign: "center" }}
+					style={{ width: "100%", padding: 12 }}
 				>
 					<Image
-						style={{
-							borderRadius: 16,
-							backgroundColor: "rgba(0,0,0,0.1)",
-							objectFit: "cover",
-							display: "inline-block",
+						wrapperStyle={{
 							width: "100%",
 							aspectRatio: 1,
+							position: "relative",
+							display: "block",
 						}}
+						style={{
+							borderRadius: 16,
+							backgroundColor: "rgba(0,0,0,0.05)",
+							objectFit: "cover",
+							width: "100%",
+							height: "100%",
+						}}
+						placeholder={
+							<Skeleton.Image
+								active
+								style={{
+									position: "absolute",
+									top: 0,
+									left: 0,
+									width: "100%",
+									height: "100%",
+									borderRadius: 16,
+									display: "flex",
+									alignItems: "center",
+									justifyContent: "center",
+								}}
+							/>
+						}
 						preview={false}
 						alt={product.title}
 						src={product.thumbnail}
@@ -47,103 +67,92 @@ function ProductCard({
 				</Flex>
 			}
 		>
-			<Card.Meta
-				title={
+			<Flex
+				vertical
+				gap="middle"
+			>
+				<div>
 					<Title
 						level={5}
-						style={{
-							overflow: "hidden",
-							textOverflow: "ellipsis",
-							whiteSpace: "nowrap",
-							margin: 0,
-						}}
-						ellipsis={{
-							tooltip: product.title,
-						}}
+						style={{ margin: 0 }}
+						ellipsis={{ tooltip: product.title }}
 					>
 						{product.title}
 					</Title>
-				}
-				description={
-					<Flex
-						vertical
-						gap={8}
+				</div>
+
+				<Flex
+					vertical
+					gap={4}
+				>
+					<Text
+						strong
+						style={{ fontSize: 14, color: "#3dd629" }}
 					>
-						<Flex vertical>
-							<Text
-								strong
-								style={{
-									fontSize: 14,
-									color: "#3dd629",
-								}}
-							>
-								{product.discountPercentage}% off
-							</Text>
+						{product.discountPercentage}% off
+					</Text>
 
-							<Flex
-								gap="middle"
-								align="center"
-							>
-								<Text
-									strong
-									style={{
-										fontSize: 24,
-									}}
-								>
-									$
-									{(
-										product.price
-										* (1 - product.discountPercentage / 100)
-									).toFixed(2)}
-								</Text>
-
-								<Text
-									strong
-									style={{
-										fontSize: 16,
-										color: "#888",
-										textDecoration: "line-through",
-									}}
-								>
-									${product.price}
-								</Text>
-							</Flex>
-						</Flex>
-
-						<Paragraph
-							style={{
-								fontWeight: "400",
-							}}
-							className="line-clamp-3"
+					<Flex
+						gap="middle"
+						align="center"
+					>
+						<Text
+							strong
+							style={{ fontSize: 24 }}
 						>
-							{product.description}
-						</Paragraph>
+							$
+							{(
+								product.price
+								* (1 - product.discountPercentage / 100)
+							).toFixed(2)}
+						</Text>
 
-						<StarRating
-							rating={product.rating}
-							reviewsCount={product.reviews.length}
-							size="small"
-						/>
-
-						<Badge
-							count={cartQuantity}
-							overflowCount={10}
+						<Text
+							delete
+							style={{ fontSize: 16, color: "#888" }}
 						>
-							<Button
-								size="large"
-								shape="round"
-								onClick={(e) => {
-									e.stopPropagation();
-
-									addToCart(product.id);
-								}}
-							>
-								Add to Cart <ShoppingCartOutlined />
-							</Button>
-						</Badge>
+							${product.price}
+						</Text>
 					</Flex>
-				}
-			/>
+				</Flex>
+
+				<Paragraph
+					style={{ margin: 0, color: "#666" }}
+					ellipsis={{ rows: 3 }}
+				>
+					{product.description}
+				</Paragraph>
+
+				<StarRating
+					rating={product.rating}
+					reviewsCount={product.reviews.length}
+					size="small"
+				/>
+
+				<Flex
+					justify="space-between"
+					align="center"
+					style={{ marginTop: 8 }}
+				>
+					<Badge
+						count={cartQuantity}
+						overflowCount={10}
+					>
+						<Button
+							size="large"
+							shape="round"
+							icon={<ShoppingCartOutlined />}
+							onClick={(e) => {
+								e.stopPropagation();
+
+								addToCart(product.id);
+							}}
+						>
+							Add to Cart
+						</Button>
+					</Badge>
+				</Flex>
+			</Flex>
 		</Card>
 	);
 }
