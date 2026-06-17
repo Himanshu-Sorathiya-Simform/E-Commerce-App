@@ -8,10 +8,10 @@ function ProductCardSkeleton() {
 				minWidth: 250,
 				width: "100%",
 				backgroundColor: "white",
-				borderRadius: 8,
 				border: "1px solid #f0f0f0",
 				boxSizing: "border-box",
 				overflow: "hidden",
+				borderRadius: 24,
 			}}
 		>
 			<Flex
@@ -37,7 +37,7 @@ function ProductCardSkeleton() {
 			<Flex
 				vertical
 				gap={10}
-				style={{ padding: 24 }}
+				style={{ padding: "0px 12px 12px" }}
 			>
 				<Skeleton
 					active

@@ -20,8 +20,11 @@ function ProductCard({
 }: ProductCardProps) {
 	return (
 		<Card
-			style={{ flex: 1, minWidth: 250 }}
-			hoverable
+			style={{
+				flex: 1,
+				minWidth: 250,
+				borderRadius: 24,
+			}}
 			onClick={() => onSelectItem(product)}
 			cover={
 				<Flex
@@ -68,10 +71,15 @@ function ProductCard({
 					/>
 				</Flex>
 			}
+			styles={{
+				body: {
+					padding: "0px 12px 12px",
+				},
+			}}
 		>
 			<Flex
 				vertical
-				gap="middle"
+				gap="small"
 			>
 				<div>
 					<Title

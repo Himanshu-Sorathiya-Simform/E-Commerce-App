@@ -53,8 +53,6 @@ function App() {
 									<Content setCollapsed={setCollapsed} />
 								</Flex>
 							</Flex>
-
-							{/* <Footer /> */}
 						</Flex>
 					</ConfigProvider>
 				</CartProvider>
