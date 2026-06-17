@@ -9,12 +9,14 @@ interface CartContext {
 	cart: Cart[];
 	addToCart: (productId: number) => void;
 	removeFromCart: (productId: number) => void;
+	totalItems: number;
 }
 
 const CartContext = createContext<CartContext>({
 	cart: [],
 	addToCart: () => {},
 	removeFromCart: () => {},
+	totalItems: 0,
 });
 
 function CartProvider({ children }: CartProviderProps) {
@@ -48,7 +50,9 @@ function CartProvider({ children }: CartProviderProps) {
 		});
 	}
 
-	const ctxValue = { cart, addToCart, removeFromCart };
+	const totalItems = cart.reduce((acc, curr) => acc + curr.quantity, 0);
+
+	const ctxValue = { cart, addToCart, removeFromCart, totalItems };
 
 	return <CartContext value={ctxValue}>{children}</CartContext>;
 }

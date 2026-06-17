@@ -30,11 +30,13 @@ function ProductCard({
 					style={{ width: "100%", padding: 12 }}
 				>
 					<Image
-						wrapperStyle={{
-							width: "100%",
-							aspectRatio: 1,
-							position: "relative",
-							display: "block",
+						styles={{
+							root: {
+								width: "100%",
+								aspectRatio: 1,
+								position: "relative",
+								display: "block",
+							},
 						}}
 						style={{
 							borderRadius: 16,

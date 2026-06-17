@@ -1,7 +1,10 @@
 import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, ConfigProvider, Flex, Input } from "antd";
+import { Badge, Button, ConfigProvider, Flex, Input } from "antd";
+import { useCart } from "../../context/cartContext.tsx";
 
 function HeaderPrimary() {
+	const { totalItems } = useCart();
+
 	return (
 		<div
 			style={{
@@ -23,7 +26,7 @@ function HeaderPrimary() {
 					<ShoppingCartOutlined />
 				</div>
 
-				<Flex gap={12}>
+				<Flex gap="middle">
 					<Button
 						type="text"
 						style={{ fontSize: "1.125rem" }}
@@ -46,7 +49,7 @@ function HeaderPrimary() {
 					</Button>
 				</Flex>
 
-				<div style={{ flex: 1 }}>
+				<Flex style={{ flex: 1 }}>
 					<ConfigProvider
 						theme={{
 							components: {
@@ -63,25 +66,29 @@ function HeaderPrimary() {
 					>
 						<Input placeholder="Search Product" />
 					</ConfigProvider>
-				</div>
+				</Flex>
 
-				<div>
+				<Flex gap="medium">
 					<Button
-						type="text"
+						size="large"
+						shape="round"
 						style={{ fontSize: "1.125rem" }}
 					>
 						<UserOutlined />
 						Account
 					</Button>
 
-					<Button
-						type="text"
-						style={{ fontSize: "1.125rem" }}
-					>
-						<ShoppingCartOutlined />
-						Cart
-					</Button>
-				</div>
+					<Badge count={totalItems}>
+						<Button
+							size="large"
+							shape="round"
+							style={{ fontSize: "1.125rem" }}
+						>
+							<ShoppingCartOutlined />
+							Cart
+						</Button>
+					</Badge>
+				</Flex>
 			</Flex>
 		</div>
 	);
