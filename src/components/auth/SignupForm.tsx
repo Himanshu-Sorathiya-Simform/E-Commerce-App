@@ -1,5 +1,10 @@
 import { defaultSignupValues } from "@/constants/formDefaults.ts";
 import { type SignupSchema, signupSchema } from "@/schemas/SignupSchema.ts";
+import type { User } from "@/types/user.types.ts";
+import {
+	getLocalStorageData,
+	setLocalStorageData,
+} from "@/utils/localStorageUtils.ts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RefreshCcw } from "lucide-react";
 import { useState } from "react";
@@ -31,29 +36,31 @@ function SignupForm() {
 		trigger,
 		resetField,
 		handleSubmit,
-		// setError,
+		setError,
+		watch,
 	} = useForm<SignupSchema>({
 		resolver: zodResolver(signupSchema),
 		mode: "onSubmit",
 		reValidateMode: "onChange",
 		defaultValues: defaultSignupValues,
 	});
+
 	async function nextStep(e: React.MouseEvent<HTMLButtonElement>) {
 		e.preventDefault();
 
-		// const users = getUsers();
+		const emailFieldValue = watch("email");
 
-		// const userExist = users.find((user) => user.email === formValues.email);
-		// if (userExist) {
-		// 	setError("email", {
-		// 		type: "manual",
-		// 		message: "Email already in use",
-		// 	});
+		const users = getLocalStorageData<User[]>("e-com-users", "[]");
 
-		// 	setCurrentStep(0);
+		const userExist = users.find((user) => user.email === emailFieldValue);
+		if (userExist) {
+			setError("email", {
+				type: "manual",
+				message: "Email already in use",
+			});
 
-		// 	return;
-		// }
+			return;
+		}
 
 		const valid = await trigger(FormSteps[currentStep]);
 
@@ -68,25 +75,27 @@ function SignupForm() {
 		if (currentStep > 0) setCurrentStep((prev) => prev - 1);
 	}
 
-	function onSubmit() {
-		// data: SignupSchema
-		// const user: User = {
-		// 	email: data.email,
-		// 	password: data.password,
-		// 	firstName: data.firstName,
-		// 	lastName: data.lastName,
-		// 	dateOfBirth: data.dateOfBirth,
-		// 	gender: data.gender,
-		// 	city: data.city,
-		// 	landmark: data.landmark ?? "",
-		// 	phoneNumber: data.phoneNumber ?? "",
-		// 	street: data.street,
-		// 	state: data.state,
-		// 	zip: data.zip,
-		// 	country: data.country,
-		// };
+	function onSubmit(data: SignupSchema) {
+		const user: User = {
+			email: data.email,
+			password: data.password,
+			firstName: data.firstName,
+			lastName: data.lastName,
+			dateOfBirth: data.dateOfBirth,
+			gender: data.gender,
+			city: data.city,
+			landmark: data.landmark ?? "",
+			phoneNumber: data.phoneNumber ?? "",
+			street: data.street,
+			state: data.state,
+			zip: data.zip,
+			country: data.country,
+		};
 
-		// setUsers(user);
+		const users = getLocalStorageData<User[]>("e-com-users", "[]");
+		users.push(user);
+
+		setLocalStorageData("e-com-users", users);
 
 		navigate("/signin");
 	}

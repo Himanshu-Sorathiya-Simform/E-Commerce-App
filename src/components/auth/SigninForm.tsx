@@ -1,5 +1,10 @@
 import { defaultSigninValues } from "@/constants/formDefaults.ts";
 import { type SigninSchema, signinSchema } from "@/schemas/SigninSchema.ts";
+import type { User } from "@/types/user.types.ts";
+import {
+	getLocalStorageData,
+	setLocalStorageData,
+} from "@/utils/localStorageUtils.ts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RefreshCcw } from "lucide-react";
 import { type SubmitHandler, useForm } from "react-hook-form";
@@ -17,41 +22,39 @@ function SigninForm() {
 		register,
 		handleSubmit,
 		reset,
-		// setError,
+		setError,
 		formState: { errors },
 	} = useForm<SigninSchema>({
 		resolver: zodResolver(signinSchema),
 		defaultValues: defaultSigninValues,
 	});
 
-	const onSubmit: SubmitHandler<SigninSchema> = function () {
-		// data: SigninSchema
-		// const { email, password } = data;
-		// const users = getUsers();
+	const onSubmit: SubmitHandler<SigninSchema> = function (data: SigninSchema) {
+		const { email, password } = data;
+		const users = getLocalStorageData<User[]>("e-com-users", "[]");
 
-		// const userExist = users.find((user) => user.email === email);
-		// if (!userExist) {
-		// 	setError("email", {
-		// 		type: "manual",
-		// 		message: "User does not exist",
-		// 	});
+		const user = users.find((user) => user.email === email);
+		if (!user) {
+			setError("email", {
+				type: "manual",
+				message: "User does not exist",
+			});
 
-		// 	return;
-		// }
+			return;
+		}
 
-		// const isPasswordCorrect = userExist.password === password;
-		// if (!isPasswordCorrect) {
-		// 	setError("password", {
-		// 		type: "manual",
-		// 		message: "Password is incorrect",
-		// 	});
+		if (user.password !== password) {
+			setError("password", {
+				type: "manual",
+				message: "Password is incorrect",
+			});
 
-		// 	return;
-		// }
+			return;
+		}
 
-		// onLoginSuccess(userExist.email);
+		setLocalStorageData("e-com-user", user);
 
-		navigate("/profile");
+		navigate("/");
 	};
 
 	const handleReset = () => {
