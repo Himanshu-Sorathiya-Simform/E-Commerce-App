@@ -1,19 +1,16 @@
 import { Flex, Image, Skeleton, Typography } from "antd";
-import { useProducts } from "../../context/productsContext.tsx";
 import type { Cart } from "../../types/cart.types.ts";
+import type { DetailedProduct } from "../../types/product.types.ts";
+import CartHandler from "./CartHandler.tsx";
 
 interface CartItemProps {
-	cartItem: Cart;
+	cartProduct: (DetailedProduct & Cart) | undefined;
 }
 
 const { Paragraph, Text } = Typography;
 
-function CartItem({ cartItem }: CartItemProps) {
-	const { products } = useProducts();
-
-	const product = products.find((product) => product.id === cartItem.productId);
-
-	if (!product) return null;
+function CartItem({ cartProduct }: CartItemProps) {
+	if (!cartProduct) return null;
 
 	return (
 		<Flex
@@ -28,12 +25,13 @@ function CartItem({ cartItem }: CartItemProps) {
 			<Image
 				preview={false}
 				width={100}
-				alt={product.title}
-				src={product.thumbnail}
+				alt={cartProduct.title}
+				src={cartProduct.thumbnail}
 				style={{
 					borderRadius: 16,
 					backgroundColor: "rgba(0,0,0,0.05)",
 					objectFit: "cover",
+					flexShrink: 0,
 				}}
 				placeholder={
 					<Skeleton.Image
@@ -52,54 +50,64 @@ function CartItem({ cartItem }: CartItemProps) {
 					/>
 				}
 			/>
+
 			<Flex
 				vertical
-				gap={0}
+				gap="small"
 			>
-				<Paragraph>
+				<Paragraph style={{ margin: 0 }}>
 					Name:{" "}
 					<Text
 						style={{
 							fontWeight: "600",
 						}}
 					>
-						{product.title}
+						{cartProduct.title}
 					</Text>
 				</Paragraph>
 
-				<Flex gap="large">
-					<Paragraph>
+				<Flex
+					gap="large"
+					align="center"
+				>
+					<Paragraph style={{ margin: 0 }}>
 						Price:{" "}
 						<Text
 							style={{
 								fontWeight: "600",
 							}}
 						>
-							${product.price}
+							${cartProduct.price}
 						</Text>
 					</Paragraph>
 
-					<Paragraph>
+					<Paragraph style={{ margin: 0 }}>
 						Quantity:{" "}
 						<Text
 							style={{
 								fontWeight: "600",
 							}}
 						>
-							{cartItem.quantity}
+							{cartProduct.quantity}
 						</Text>
 					</Paragraph>
+
+					<CartHandler
+						product={cartProduct}
+						productCartQuantity={cartProduct.quantity}
+						size="medium"
+					/>
 				</Flex>
 
-				<Paragraph>
+				<Paragraph style={{ margin: 0 }}>
 					Total:{" "}
 					<Text
 						style={{
 							fontWeight: "600",
 						}}
 					>
-						${product.price} * {cartItem.quantity} = $
-						{product.price * cartItem.quantity}
+						${cartProduct.price} * {cartProduct.quantity} = $
+						{cartProduct.price * cartProduct.quantity}
 					</Text>
 				</Paragraph>
 			</Flex>

@@ -24,6 +24,7 @@ function ProductCard({
 				flex: 1,
 				minWidth: 250,
 				borderRadius: 24,
+				cursor: "pointer",
 			}}
 			onClick={() => onSelectItem(product)}
 			cover={

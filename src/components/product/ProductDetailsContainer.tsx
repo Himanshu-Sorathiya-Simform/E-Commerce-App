@@ -1,13 +1,12 @@
 import {
-	MinusOutlined,
-	PlusOutlined,
 	SecurityScanOutlined,
 	TruckOutlined,
 	UndoOutlined,
 } from "@ant-design/icons";
-import { Button, Col, Divider, Flex, Space, Typography } from "antd";
+import { Button, Col, Divider, Flex, Typography } from "antd";
 import { useCart } from "../../context/cartContext.tsx";
 import type { DetailedProduct } from "../../types/product.types.ts";
+import CartHandler from "../cart/CartHandler.tsx";
 import StarRating from "../ui/StarRating.tsx";
 
 const { Paragraph, Title, Text } = Typography;
@@ -122,7 +121,7 @@ function ProductPricingInformation({ product }: ProductPricingInformationProps) 
 }
 
 function ProductActions({ product }: ProductActionsProps) {
-	const { cart, addToCart, removeFromCart } = useCart();
+	const { cart } = useCart();
 
 	const productCartQuantity =
 		cart.find((c) => c.productId === product.id)?.quantity ?? 0;
@@ -136,38 +135,10 @@ function ProductActions({ product }: ProductActionsProps) {
 				gap="large"
 				align="center"
 			>
-				<Space.Compact>
-					<Button
-						size="large"
-						style={{
-							borderStartStartRadius: "9999px",
-							borderEndStartRadius: "9999px",
-						}}
-						onClick={() => removeFromCart(product.id)}
-						icon={<MinusOutlined />}
-					/>
-					<Button
-						size="large"
-						disabled
-						style={{
-							color: "#000",
-							cursor: "default",
-							fontWeight: "600",
-							fontSize: "18px",
-						}}
-					>
-						{productCartQuantity}
-					</Button>
-					<Button
-						size="large"
-						style={{
-							borderStartEndRadius: "9999px",
-							borderEndEndRadius: "9999px",
-						}}
-						onClick={() => addToCart(product.id)}
-						icon={<PlusOutlined />}
-					/>
-				</Space.Compact>
+				<CartHandler
+					product={product}
+					productCartQuantity={productCartQuantity}
+				/>
 
 				<Flex vertical>
 					<Text>
@@ -196,17 +167,6 @@ function ProductActions({ product }: ProductActionsProps) {
 					}}
 				>
 					Buy Now
-				</Button>
-
-				<Button
-					size="large"
-					shape="round"
-					style={{
-						fontWeight: "500",
-					}}
-					onClick={() => addToCart(product.id)}
-				>
-					Add to Cart
 				</Button>
 			</Flex>
 		</Flex>

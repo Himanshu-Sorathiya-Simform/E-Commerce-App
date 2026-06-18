@@ -1,5 +1,6 @@
-import { ConfigProvider, Flex } from "antd";
+import { ConfigProvider, Drawer, Flex } from "antd";
 import { useState } from "react";
+import CartInformation from "./components/cart/CartInformation.tsx";
 import Content from "./components/content/Content.tsx";
 import Header from "./components/header/Header.tsx";
 import Sidebar from "./components/sidebar/Sidebar.tsx";
@@ -9,6 +10,11 @@ import ProductsProvider from "./context/productsContext.tsx";
 
 function App() {
 	const [collapsed, setCollapsed] = useState(false);
+	const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
+
+	function openCartDrawer() {
+		setCartDrawerOpen(true);
+	}
 
 	return (
 		<CategoriesProvider>
@@ -39,7 +45,7 @@ function App() {
 									overflow: "hidden",
 								}}
 							>
-								<Header />
+								<Header openCartDrawer={openCartDrawer} />
 
 								<Flex
 									style={{
@@ -54,6 +60,17 @@ function App() {
 								</Flex>
 							</Flex>
 						</Flex>
+
+						<Drawer
+							title="Your Cart"
+							placement="right"
+							size={"30%"}
+							open={cartDrawerOpen}
+							onClose={() => setCartDrawerOpen(false)}
+							mask={{ blur: true }}
+						>
+							<CartInformation />
+						</Drawer>
 					</ConfigProvider>
 				</CartProvider>
 			</ProductsProvider>

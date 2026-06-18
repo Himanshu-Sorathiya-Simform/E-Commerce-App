@@ -1,11 +1,28 @@
+import { ArrowRightOutlined } from "@ant-design/icons";
 import { Button, Flex, Typography } from "antd";
 import { useCart } from "../../context/cartContext.tsx";
+import { useProducts } from "../../context/productsContext.tsx";
+import type { Cart } from "../../types/cart.types.ts";
+import type { DetailedProduct } from "../../types/product.types.ts";
 import CartItem from "./CartItem.tsx";
 
-const { Paragraph } = Typography;
+const { Paragraph, Text } = Typography;
 
 function CartInformation() {
 	const { cart } = useCart();
+	const { products } = useProducts();
+
+	const cartProducts = cart.map(
+		(cartItem): (DetailedProduct & Cart) | undefined => {
+			const product = products.find(
+				(product) => product.id === cartItem.productId,
+			);
+
+			if (!product) return;
+
+			return { ...cartItem, ...product };
+		},
+	);
 
 	if (!cart.length)
 		return (
@@ -19,6 +36,11 @@ function CartInformation() {
 			</Paragraph>
 		);
 
+	const totalBill = cartProducts.reduce(
+		(acc, curr) => acc + (curr?.price ?? 0) * (curr?.quantity ?? 0),
+		0,
+	);
+
 	return (
 		<Flex
 			gap="small"
@@ -27,15 +49,27 @@ function CartInformation() {
 				height: "100%",
 			}}
 		>
-			{cart.map((cartItem) => (
-				<CartItem cartItem={cartItem} />
+			{cartProducts.map((cartProduct) => (
+				<CartItem cartProduct={cartProduct} />
 			))}
 
 			<Button
 				type="primary"
-				style={{ marginTop: "auto" }}
+				size="large"
+				style={{ marginTop: "auto", fontSize: "18px" }}
 			>
-				Check Out
+				<Paragraph style={{ margin: 0, color: "white", fontSize: "18px" }}>
+					Check Out{" "}
+					<Text
+						style={{
+							fontWeight: 600,
+							color: "white",
+							fontSize: "18px",
+						}}
+					>
+						${totalBill.toFixed(2)} <ArrowRightOutlined />
+					</Text>
+				</Paragraph>
 			</Button>
 		</Flex>
 	);

@@ -4,7 +4,11 @@ import HeaderSecondary from "./HeaderSecondary.tsx";
 
 const { Header: HeaderAntD } = Layout;
 
-function Header() {
+interface HeaderProps {
+	openCartDrawer: () => void;
+}
+
+function Header({ openCartDrawer }: HeaderProps) {
 	return (
 		<HeaderAntD
 			style={{
@@ -17,7 +21,7 @@ function Header() {
 			>
 				<HeaderSecondary />
 
-				<HeaderPrimary />
+				<HeaderPrimary openCartDrawer={openCartDrawer} />
 			</Flex>
 		</HeaderAntD>
 	);

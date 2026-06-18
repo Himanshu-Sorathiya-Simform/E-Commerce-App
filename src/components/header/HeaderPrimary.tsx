@@ -1,11 +1,12 @@
 import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
-import { Badge, Button, ConfigProvider, Drawer, Flex, Input } from "antd";
-import { useState } from "react";
+import { Badge, Button, ConfigProvider, Flex, Input } from "antd";
 import { useCart } from "../../context/cartContext.tsx";
-import CartInformation from "../cart/CartInformation.tsx";
 
-function HeaderPrimary() {
-	const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
+interface HeaderPrimaryProps {
+	openCartDrawer: () => void;
+}
+
+function HeaderPrimary({ openCartDrawer }: HeaderPrimaryProps) {
 	const { totalItems } = useCart();
 
 	return (
@@ -82,24 +83,13 @@ function HeaderPrimary() {
 						size="large"
 						shape="round"
 						style={{ fontSize: "1.125rem" }}
-						onClick={() => setCartDrawerOpen(true)}
+						onClick={openCartDrawer}
 					>
 						<ShoppingCartOutlined />
 						Cart
 					</Button>
 				</Badge>
 			</Flex>
-
-			<Drawer
-				title="Your Cart"
-				placement="right"
-				size={"30%"}
-				open={cartDrawerOpen}
-				onClick={() => setCartDrawerOpen(false)}
-				mask={{ blur: true }}
-			>
-				<CartInformation />
-			</Drawer>
 		</Flex>
 	);
 }
