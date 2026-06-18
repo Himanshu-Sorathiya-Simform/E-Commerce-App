@@ -1,7 +1,8 @@
+import { useAuth } from "@/context/authContext.tsx";
 import { Navigate, Outlet } from "react-router";
 
 function ProtectedRoute() {
-	const { authenticated } = useAuthContext();
+	const { isAuthenticated } = useAuth();
 
 	if (!isAuthenticated) {
 		return (
@@ -16,12 +17,12 @@ function ProtectedRoute() {
 }
 
 function PublicRoute() {
-	const { authenticated } = useAuthContext();
+	const { isAuthenticated } = useAuth();
 
 	if (isAuthenticated) {
 		return (
 			<Navigate
-				to="/profile"
+				to="/"
 				replace
 			/>
 		);

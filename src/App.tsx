@@ -1,4 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
+import SigninForm from "./components/auth/SigninForm.tsx";
+import SignupForm from "./components/auth/SignupForm.tsx";
 import AppLayout from "./layouts/AppLayout.tsx";
 import AuthLayout from "./layouts/AuthLayout.tsx";
 import RootLayout from "./layouts/RootLayout.tsx";

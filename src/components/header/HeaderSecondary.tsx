@@ -1,6 +1,6 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Flex, Typography } from "antd";
-import { languageOptions } from "../../constants/dropdownConstants.ts";
+import { languageOptions } from "../../constants/dropdownOptions.ts";
 import Dropdown from "../dropdown/Dropdown.tsx";
 
 const { Text } = Typography;
