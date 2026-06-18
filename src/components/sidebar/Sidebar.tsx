@@ -4,7 +4,7 @@ import { useState } from "react";
 import { categoryIconMap } from "../../constants/categoryIcons.ts";
 import { useCategories } from "../../context/categoriesContext.tsx";
 import { useProducts } from "../../context/productsContext.tsx";
-import { formatCategory } from "../../utils/utils.ts";
+import { formatCategory } from "../../utils/categoryUtils.ts";
 
 interface SidebarProps {
 	collapsed: boolean;

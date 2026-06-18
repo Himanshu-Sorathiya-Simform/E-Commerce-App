@@ -2,7 +2,7 @@ import { HomeOutlined } from "@ant-design/icons";
 import { Breadcrumb as BreadcrumbAntD } from "antd";
 import { categoryIconMap } from "../../constants/categoryIcons.ts";
 import type { Category } from "../../types/category.types.ts";
-import { formatCategory } from "../../utils/utils.ts";
+import { formatCategory } from "../../utils/categoryUtils.ts";
 
 interface BreadcrumbProps {
 	category: Category;
