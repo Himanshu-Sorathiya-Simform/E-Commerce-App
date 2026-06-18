@@ -30,7 +30,11 @@
 		"strictNullChecks": true,
 		"strictBindCallApply": true,
 		"strictFunctionTypes": true,
-		"strictPropertyInitialization": true
+		"strictPropertyInitialization": true,
+
+		"paths": {
+			"@/*": ["./src/*"]
+		}
 	},
 	"include": ["vite.config.ts"]
 }
