@@ -1,6 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import AppLayout from "./layouts/AppLayout.tsx";
+import AuthLayout from "./layouts/AuthLayout.tsx";
 import RootLayout from "./layouts/RootLayout.tsx";
+import { PublicRoute } from "./routes/Route.tsx";
 
 const router = createBrowserRouter([
 	{
@@ -10,6 +12,24 @@ const router = createBrowserRouter([
 			{
 				index: true,
 				Component: AppLayout,
+			},
+			{
+				element: <PublicRoute />,
+				children: [
+					{
+						element: <AuthLayout />,
+						children: [
+							{
+								path: "/signin",
+								element: <SigninForm />,
+							},
+							{
+								path: "/signup",
+								element: <SignupForm />,
+							},
+						],
+					},
+				],
 			},
 		],
 	},

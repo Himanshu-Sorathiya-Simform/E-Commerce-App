@@ -1,9 +1,12 @@
+import AuthProvider from "@/context/authContext.tsx";
 import { Outlet } from "react-router";
 
 function RootLayout() {
 	return (
 		<>
-			<Outlet />
+			<AuthProvider>
+				<Outlet />
+			</AuthProvider>
 		</>
 	);
 }
