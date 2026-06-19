@@ -1,4 +1,4 @@
-import { Flex, Layout } from "antd";
+import { Layout } from "antd";
 import { useNavigate } from "react-router";
 import { useCart } from "../../context/cartContext.tsx";
 import { useProducts } from "../../context/productsContext.tsx";
@@ -23,11 +23,11 @@ function Content() {
 				overflowY: "scroll",
 			}}
 		>
-			<Flex
-				wrap
-				gap="medium"
-				justify="center"
+			<div
 				style={{
+					display: "grid",
+					gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+					gap: "16px",
 					position: "relative",
 					padding: "2rem 3rem",
 				}}
@@ -52,7 +52,7 @@ function Content() {
 						);
 					})
 				}
-			</Flex>
+			</div>
 		</ContentAntD>
 	);
 }
