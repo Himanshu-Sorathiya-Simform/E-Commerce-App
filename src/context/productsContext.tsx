@@ -5,7 +5,7 @@ import {
 	useEffect,
 	useState,
 } from "react";
-import { useParams } from "react-router";
+import { useParams, useSearchParams } from "react-router";
 import { fetchProducts } from "../services/productApi.ts";
 import type { DetailedProduct } from "../types/product.types.ts";
 
@@ -15,34 +15,50 @@ interface ProductsProviderProps {
 
 interface ProductsContext {
 	products: DetailedProduct[];
+	totalItems: number;
 	isLoading: boolean;
 }
 
 const ProductsContext = createContext<ProductsContext>({
 	products: [],
+	totalItems: 0,
 	isLoading: false,
 });
 
 function ProductsProvider({ children }: ProductsProviderProps) {
 	const { category } = useParams();
 
+	const [searchParams] = useSearchParams();
+	const pageIndex = searchParams.get("pageIndex");
+	const pageSize = searchParams.get("pageSize");
+
 	const [products, setProducts] = useState<DetailedProduct[]>([]);
+	const [totalItems, setTotalItems] = useState(0);
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
 		async function loadProducts() {
 			setIsLoading(true);
 
-			const products = await fetchProducts({ category: category });
+			const data = await fetchProducts({
+				category,
+				pageSize,
+				pageIndex,
+			});
+
+			if (!data) return;
+
+			const { totalItems, products } = data;
 
 			setProducts(products);
+			setTotalItems(totalItems);
 			setIsLoading(false);
 		}
 
 		loadProducts();
-	}, [category]);
+	}, [category, pageIndex, pageSize]);
 
-	const ctxValue = { products, isLoading };
+	const ctxValue = { products, isLoading, totalItems };
 
 	return <ProductsContext value={ctxValue}>{children}</ProductsContext>;
 }
