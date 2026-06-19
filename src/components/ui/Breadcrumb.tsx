@@ -1,6 +1,6 @@
 import { HomeOutlined } from "@ant-design/icons";
 import { Breadcrumb as BreadcrumbAntD, Button } from "antd";
-import { useNavigate, useSearchParams } from "react-router";
+import { useNavigate } from "react-router";
 import { categoryIconMap } from "../../constants/categoryIcons.ts";
 import type { Category } from "../../types/category.types.ts";
 import { formatCategory } from "../../utils/categoryUtils.ts";
@@ -15,11 +15,8 @@ function Breadcrumb({ category, title }: BreadcrumbProps) {
 
 	const Icon = categoryIconMap[category] ?? categoryIconMap["fallback"];
 
-	const [, setSearchParams] = useSearchParams();
-
 	function handleCategoryClick() {
-		navigate(`/`);
-		setSearchParams((prev) => ({ ...prev, category: category }));
+		navigate(`/${category}`);
 	}
 
 	return (

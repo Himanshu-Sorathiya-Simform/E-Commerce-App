@@ -5,7 +5,7 @@ import {
 	useEffect,
 	useState,
 } from "react";
-import { useSearchParams } from "react-router";
+import { useParams } from "react-router";
 import { fetchProducts } from "../services/productApi.ts";
 import type { DetailedProduct } from "../types/product.types.ts";
 
@@ -24,22 +24,23 @@ const ProductsContext = createContext<ProductsContext>({
 });
 
 function ProductsProvider({ children }: ProductsProviderProps) {
-	const [searchParams] = useSearchParams();
-	const selectedCategory = searchParams.get("category") ?? undefined;
+	const { category } = useParams();
 
 	const [products, setProducts] = useState<DetailedProduct[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
 		async function loadProducts() {
-			const products = await fetchProducts({ category: selectedCategory });
+			setIsLoading(true);
+
+			const products = await fetchProducts({ category: category });
 
 			setProducts(products);
 			setIsLoading(false);
 		}
 
 		loadProducts();
-	}, [selectedCategory]);
+	}, [category]);
 
 	const ctxValue = { products, isLoading };
 

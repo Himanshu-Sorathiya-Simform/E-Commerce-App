@@ -27,7 +27,7 @@ function ProductCard({
 				borderRadius: 24,
 				cursor: "pointer",
 			}}
-			onClick={() => navigate(`/${product.id}`)}
+			onClick={() => navigate(`/${product.category}/${product.id}`)}
 			cover={
 				<Flex
 					justify="center"

@@ -1,6 +1,6 @@
 import { ConfigProvider, Flex, Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
-import { useLocation, useNavigate, useSearchParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { categoryIconMap } from "../../constants/categoryIcons.ts";
 import { useCategories } from "../../context/categoriesContext.tsx";
 import { formatCategory } from "../../utils/categoryUtils.ts";
@@ -11,33 +11,19 @@ interface SidebarProps {
 }
 
 function Sidebar({ collapsed }: SidebarProps) {
-	const location = useLocation();
 	const navigate = useNavigate();
-	const [searchParams, setSearchParams] = useSearchParams();
-
-	const selectedCategory = searchParams.get("category") ?? "";
+	const { category: currentCategory = "", productId } = useParams();
 
 	const { categories, isLoading } = useCategories();
 
 	function handleCategoryClick(clickedCategory: string) {
-		if (location.pathname === "/" && selectedCategory === clickedCategory) {
-			setSearchParams((prev) => {
-				prev.delete("category");
-
-				return prev;
-			});
+		if (currentCategory === clickedCategory && !productId) {
+			navigate(`/`);
 
 			return;
 		}
 
-		if (location.pathname !== "/" && selectedCategory === clickedCategory) {
-			navigate(`/${location.search}`);
-
-			return;
-		}
-
-		navigate(`/${location.search}`);
-		setSearchParams((prev) => ({ ...prev, category: clickedCategory }));
+		navigate(`/${clickedCategory}`);
 	}
 
 	return (
@@ -83,7 +69,7 @@ function Sidebar({ collapsed }: SidebarProps) {
 				:	<Menu
 						style={{ height: "100%" }}
 						tooltip={{ placement: "right" }}
-						selectedKeys={[selectedCategory]}
+						selectedKeys={[currentCategory]}
 						items={categories.map((category) => {
 							const Icon =
 								categoryIconMap[category]

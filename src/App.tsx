@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import SigninForm from "./components/auth/SigninForm.tsx";
 import SignupForm from "./components/auth/SignupForm.tsx";
 import Content from "./components/content/Content.tsx";
-import DetailedProductModal from "./components/product/DetailedProductPage.tsx";
+import DetailedProductPage from "./components/product/DetailedProductPage.tsx";
 import AppLayout from "./layouts/AppLayout.tsx";
 import AuthLayout from "./layouts/AuthLayout.tsx";
 import RootLayout from "./layouts/RootLayout.tsx";
@@ -23,8 +23,12 @@ const router = createBrowserRouter([
 								element: <Content />,
 							},
 							{
-								path: ":productId",
-								element: <DetailedProductModal />,
+								path: ":category",
+								element: <Content />,
+							},
+							{
+								path: ":category/:productId",
+								element: <DetailedProductPage />,
 							},
 						],
 					},
