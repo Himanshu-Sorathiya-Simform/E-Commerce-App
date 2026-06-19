@@ -1,39 +1,44 @@
-import { ConfigProvider, Flex, Menu, Skeleton } from "antd";
+import { ConfigProvider, Flex, Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
-import { useState } from "react";
+import { useSearchParams } from "react-router";
 import { categoryIconMap } from "../../constants/categoryIcons.ts";
 import { useCategories } from "../../context/categoriesContext.tsx";
 import { useProducts } from "../../context/productsContext.tsx";
 import { formatCategory } from "../../utils/categoryUtils.ts";
+import SidebarItemSkeleton from "./SidebarItemSkeleton.tsx";
 
 interface SidebarProps {
 	collapsed: boolean;
 }
 
 function Sidebar({ collapsed }: SidebarProps) {
-	const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
+	const [searchParams, setSearchParams] = useSearchParams();
+
+	const selectedCategory = searchParams.get("category") ?? "";
 
 	const { categories, isLoading } = useCategories();
 	const { setFilters } = useProducts();
 
-	function handleSelect(selectedCategory: string) {
-		const isCurrentSelection = selectedKeys.includes(selectedCategory);
+	function handleSelect(clickedCategory: string) {
+		if (selectedCategory === clickedCategory) {
+			setSearchParams((prev) => {
+				prev.delete("category");
 
-		if (isCurrentSelection) {
-			setSelectedKeys([]);
+				return prev;
+			});
 			setFilters([]);
 
 			return;
 		}
 
-		setSelectedKeys([selectedCategory]);
+		setSearchParams((prev) => ({ ...prev, category: clickedCategory }));
 		setFilters([
 			{
 				id: "category",
 				field: "category",
 				type: "text",
 				operator: "equals",
-				value: selectedCategory,
+				value: clickedCategory,
 			},
 		]);
 	}
@@ -75,27 +80,13 @@ function Sidebar({ collapsed }: SidebarProps) {
 						}}
 					>
 						{Array.from({ length: 24 }).map((_, i) => (
-							<Skeleton
-								key={i}
-								active
-								paragraph={{ rows: 0 }}
-								style={{
-									marginBottom: "0.25rem",
-								}}
-								title={{
-									width: "100%",
-								}}
-								styles={{
-									title: { height: "2.5rem" },
-									paragraph: { margin: 0, padding: 0 },
-								}}
-							/>
+							<SidebarItemSkeleton key={i} />
 						))}
 					</Flex>
 				:	<Menu
 						style={{ height: "100%" }}
 						tooltip={{ placement: "right" }}
-						selectedKeys={selectedKeys}
+						selectedKeys={[selectedCategory]}
 						items={categories.map((category) => {
 							const Icon =
 								categoryIconMap[category]
