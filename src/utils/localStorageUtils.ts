@@ -1,5 +1,7 @@
-function getLocalStorageData<T>(key: string, defaultValue = "") {
-	const data = localStorage.getItem(key) ?? defaultValue;
+function getLocalStorageData<T>(key: string, defaultValue?) {
+	const data = localStorage.getItem(key);
+
+	if (!data) return defaultValue;
 
 	return JSON.parse(data) as T;
 }

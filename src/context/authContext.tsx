@@ -1,27 +1,37 @@
-interface AuthContext {
-	isAuthenticated: boolean;
-	user: User | null;
-}
-
 import type { User } from "@/types/user.types.ts";
-import { type ReactNode, createContext, useContext } from "react";
+import { getLocalStorageData } from "@/utils/localStorageUtils.ts";
+import {
+	type Dispatch,
+	type ReactNode,
+	type SetStateAction,
+	createContext,
+	useContext,
+	useState,
+} from "react";
 
 interface AuthProviderProps {
 	children: ReactNode;
 }
 
+interface AuthContext {
+	isAuthenticated: boolean;
+	user: User | null;
+	setUser: Dispatch<SetStateAction<User | null>>;
+}
+
 const AuthContext = createContext<AuthContext>({
 	isAuthenticated: false,
 	user: null,
+	setUser: () => {},
 });
 
 function AuthProvider({ children }: AuthProviderProps) {
-	const userString = localStorage.getItem("e-com-user");
-
-	const user = userString ? (JSON.parse(userString) as User) : null;
+	const [user, setUser] = useState(() =>
+		getLocalStorageData<User | null>("e-com-user", null),
+	);
 	const isAuthenticated = !!user;
 
-	const ctxValue = { isAuthenticated, user };
+	const ctxValue = { isAuthenticated, user, setUser };
 
 	return <AuthContext value={ctxValue}>{children}</AuthContext>;
 }

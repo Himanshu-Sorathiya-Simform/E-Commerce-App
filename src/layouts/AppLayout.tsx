@@ -9,7 +9,6 @@ import CategoriesProvider from "../context/categoriesContext.tsx";
 import ProductsProvider from "../context/productsContext.tsx";
 
 function AppLayout() {
-	const [collapsed, setCollapsed] = useState(false);
 	const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
 
 	function openCartDrawer() {
@@ -54,9 +53,9 @@ function AppLayout() {
 										overflow: "hidden",
 									}}
 								>
-									<Sidebar collapsed={collapsed} />
+									<Sidebar collapsed={false} />
 
-									<Content setCollapsed={setCollapsed} />
+									<Content />
 								</Flex>
 							</Flex>
 						</Flex>

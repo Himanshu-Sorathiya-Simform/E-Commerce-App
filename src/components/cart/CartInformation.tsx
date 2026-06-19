@@ -43,7 +43,7 @@ function CartInformation() {
 
 	return (
 		<Flex
-			gap="small"
+			gap="large"
 			vertical
 			style={{
 				height: "100%",

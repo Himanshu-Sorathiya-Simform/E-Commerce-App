@@ -4,16 +4,20 @@ import SignupForm from "./components/auth/SignupForm.tsx";
 import AppLayout from "./layouts/AppLayout.tsx";
 import AuthLayout from "./layouts/AuthLayout.tsx";
 import RootLayout from "./layouts/RootLayout.tsx";
-import { PublicRoute } from "./routes/Route.tsx";
+import { ProtectedRoute, PublicRoute } from "./routes/Route.tsx";
 
 const router = createBrowserRouter([
 	{
-		path: "/",
 		Component: RootLayout,
 		children: [
 			{
-				index: true,
-				Component: AppLayout,
+				element: <ProtectedRoute />,
+				children: [
+					{
+						index: true,
+						element: <AppLayout />,
+					},
+				],
 			},
 			{
 				element: <PublicRoute />,

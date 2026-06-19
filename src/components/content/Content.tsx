@@ -1,5 +1,5 @@
-import { Button, Flex, Layout, Modal } from "antd";
-import { type Dispatch, useState } from "react";
+import { Flex, Layout, Modal } from "antd";
+import { useState } from "react";
 import { useCart } from "../../context/cartContext.tsx";
 import { useProducts } from "../../context/productsContext.tsx";
 import type { DetailedProduct } from "../../types/product.types.ts";
@@ -9,11 +9,7 @@ import ProductCardSkeleton from "../product/ProductCardSkeleton.tsx";
 
 const { Content: ContentAntD } = Layout;
 
-interface ContentProps {
-	setCollapsed: Dispatch<React.SetStateAction<boolean>>;
-}
-
-function Content({ setCollapsed }: ContentProps) {
+function Content() {
 	const [selectedItem, setSelectedItem] = useState<DetailedProduct | undefined>(
 		undefined,
 	);
@@ -40,13 +36,6 @@ function Content({ setCollapsed }: ContentProps) {
 					overflowY: "scroll",
 				}}
 			>
-				<Button
-					type="text"
-					onClick={() => setCollapsed((prev) => !prev)}
-				>
-					Collapse
-				</Button>
-
 				<Flex
 					wrap
 					gap="medium"
@@ -57,7 +46,7 @@ function Content({ setCollapsed }: ContentProps) {
 					}}
 				>
 					{isLoading ?
-						Array.from({ length: 12 }).map((_, i) => (
+						Array.from({ length: 10 }).map((_, i) => (
 							<ProductCardSkeleton key={i} />
 						))
 					:	products.map((product) => {
