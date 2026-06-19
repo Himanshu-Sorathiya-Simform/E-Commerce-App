@@ -1,9 +1,8 @@
 import { ConfigProvider, Flex, Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
-import { useSearchParams } from "react-router";
+import { useLocation, useNavigate, useSearchParams } from "react-router";
 import { categoryIconMap } from "../../constants/categoryIcons.ts";
 import { useCategories } from "../../context/categoriesContext.tsx";
-import { useProducts } from "../../context/productsContext.tsx";
 import { formatCategory } from "../../utils/categoryUtils.ts";
 import SidebarItemSkeleton from "./SidebarItemSkeleton.tsx";
 
@@ -12,35 +11,33 @@ interface SidebarProps {
 }
 
 function Sidebar({ collapsed }: SidebarProps) {
+	const location = useLocation();
+	const navigate = useNavigate();
 	const [searchParams, setSearchParams] = useSearchParams();
 
 	const selectedCategory = searchParams.get("category") ?? "";
 
 	const { categories, isLoading } = useCategories();
-	const { setFilters } = useProducts();
 
-	function handleSelect(clickedCategory: string) {
-		if (selectedCategory === clickedCategory) {
+	function handleCategoryClick(clickedCategory: string) {
+		if (location.pathname === "/" && selectedCategory === clickedCategory) {
 			setSearchParams((prev) => {
 				prev.delete("category");
 
 				return prev;
 			});
-			setFilters([]);
 
 			return;
 		}
 
+		if (location.pathname !== "/" && selectedCategory === clickedCategory) {
+			navigate(`/${location.search}`);
+
+			return;
+		}
+
+		navigate(`/${location.search}`);
 		setSearchParams((prev) => ({ ...prev, category: clickedCategory }));
-		setFilters([
-			{
-				id: "category",
-				field: "category",
-				type: "text",
-				operator: "equals",
-				value: clickedCategory,
-			},
-		]);
 	}
 
 	return (
@@ -98,7 +95,7 @@ function Sidebar({ collapsed }: SidebarProps) {
 								label: formatCategory(category),
 							};
 						})}
-						onClick={(info) => handleSelect(info.key)}
+						onClick={(info) => handleCategoryClick(info.key)}
 					/>
 				}
 			</ConfigProvider>

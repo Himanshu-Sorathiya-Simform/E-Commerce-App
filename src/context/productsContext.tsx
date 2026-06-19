@@ -1,4 +1,4 @@
-import { type FilterConfig, useFilter } from "@himanshu-sorathiya/react-kit";
+import { filterProductsByCategory } from "@/utils/productUtils.ts";
 import {
 	type ReactNode,
 	createContext,
@@ -16,38 +16,22 @@ interface ProductsProviderProps {
 
 interface ProductsContext {
 	products: DetailedProduct[];
-	setFilters: (filters: FilterConfig[]) => void;
 	isLoading: boolean;
 }
 
 const ProductsContext = createContext<ProductsContext>({
 	products: [],
 	isLoading: false,
-	setFilters: () => {},
 });
 
 function ProductsProvider({ children }: ProductsProviderProps) {
 	const [searchParams] = useSearchParams();
-
 	const selectedCategory = searchParams.get("category") ?? "";
 
 	const [products, setProducts] = useState<DetailedProduct[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 
-	const { filteredItems, setFilters } = useFilter(
-		products,
-		selectedCategory ?
-			[
-				{
-					id: "category",
-					field: "category",
-					type: "text",
-					operator: "equals",
-					value: selectedCategory,
-				},
-			]
-		:	undefined,
-	);
+	const filteredItems = filterProductsByCategory(products, selectedCategory);
 
 	useEffect(() => {
 		async function loadProducts() {
@@ -60,7 +44,7 @@ function ProductsProvider({ children }: ProductsProviderProps) {
 		loadProducts();
 	}, []);
 
-	const ctxValue = { products: filteredItems, setFilters, isLoading };
+	const ctxValue = { products: filteredItems, isLoading };
 
 	return <ProductsContext value={ctxValue}>{children}</ProductsContext>;
 }
