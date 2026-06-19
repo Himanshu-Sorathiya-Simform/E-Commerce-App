@@ -26,29 +26,6 @@ function HeaderPrimary({ openCartDrawer }: HeaderPrimaryProps) {
 				<ShoppingCartOutlined />
 			</div>
 
-			<Flex gap="middle">
-				<Button
-					type="text"
-					style={{ fontSize: "1.125rem" }}
-				>
-					Deals
-				</Button>
-
-				<Button
-					type="text"
-					style={{ fontSize: "1.125rem" }}
-				>
-					What's New
-				</Button>
-
-				<Button
-					type="text"
-					style={{ fontSize: "1.125rem" }}
-				>
-					Delivery
-				</Button>
-			</Flex>
-
 			<Flex style={{ flex: 1 }}>
 				<ConfigProvider
 					theme={{

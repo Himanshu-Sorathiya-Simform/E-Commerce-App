@@ -1,4 +1,3 @@
-import { filterProductsByCategory } from "@/utils/productUtils.ts";
 import {
 	type ReactNode,
 	createContext,
@@ -26,25 +25,23 @@ const ProductsContext = createContext<ProductsContext>({
 
 function ProductsProvider({ children }: ProductsProviderProps) {
 	const [searchParams] = useSearchParams();
-	const selectedCategory = searchParams.get("category") ?? "";
+	const selectedCategory = searchParams.get("category") ?? undefined;
 
 	const [products, setProducts] = useState<DetailedProduct[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 
-	const filteredItems = filterProductsByCategory(products, selectedCategory);
-
 	useEffect(() => {
 		async function loadProducts() {
-			const products = await fetchProducts();
+			const products = await fetchProducts({ category: selectedCategory });
 
 			setProducts(products);
 			setIsLoading(false);
 		}
 
 		loadProducts();
-	}, []);
+	}, [selectedCategory]);
 
-	const ctxValue = { products: filteredItems, isLoading };
+	const ctxValue = { products, isLoading };
 
 	return <ProductsContext value={ctxValue}>{children}</ProductsContext>;
 }

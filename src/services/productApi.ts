@@ -10,9 +10,14 @@ interface FetchProductResponse {
 	total: number;
 }
 
-async function fetchProducts() {
+async function fetchProducts(filterOptions?: { category: string | undefined }) {
+	const category = filterOptions?.category;
+
+	const url =
+		category ? `/products/category/${category}?limit=0` : "/products?limit=0";
+
 	try {
-		const res = await api.get<FetchProductResponse>("/products?limit=0");
+		const res = await api.get<FetchProductResponse>(url);
 
 		const {
 			data: { products },
