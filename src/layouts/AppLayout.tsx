@@ -1,7 +1,7 @@
 import { ConfigProvider, Drawer, Flex } from "antd";
 import { useState } from "react";
+import { Outlet } from "react-router";
 import CartInformation from "../components/cart/CartInformation.tsx";
-import Content from "../components/content/Content.tsx";
 import Header from "../components/header/Header.tsx";
 import Sidebar from "../components/sidebar/Sidebar.tsx";
 import CartProvider from "../context/cartContext.tsx";
@@ -36,7 +36,12 @@ function AppLayout() {
 							},
 						}}
 					>
-						<Flex vertical>
+						<Flex
+							vertical
+							style={{
+								width: "100%",
+							}}
+						>
 							<Flex
 								vertical
 								style={{
@@ -55,7 +60,7 @@ function AppLayout() {
 								>
 									<Sidebar collapsed={false} />
 
-									<Content />
+									<Outlet />
 								</Flex>
 							</Flex>
 						</Flex>

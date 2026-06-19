@@ -50,7 +50,10 @@ function CartInformation() {
 			}}
 		>
 			{cartProducts.map((cartProduct) => (
-				<CartItem cartProduct={cartProduct} />
+				<CartItem
+					key={cartProduct?.id}
+					cartProduct={cartProduct}
+				/>
 			))}
 
 			<Button

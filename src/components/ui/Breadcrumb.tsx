@@ -1,5 +1,6 @@
 import { HomeOutlined } from "@ant-design/icons";
-import { Breadcrumb as BreadcrumbAntD } from "antd";
+import { Breadcrumb as BreadcrumbAntD, Button } from "antd";
+import { useNavigate } from "react-router";
 import { categoryIconMap } from "../../constants/categoryIcons.ts";
 import type { Category } from "../../types/category.types.ts";
 import { formatCategory } from "../../utils/categoryUtils.ts";
@@ -10,6 +11,8 @@ interface BreadcrumbProps {
 }
 
 function Breadcrumb({ category, title }: BreadcrumbProps) {
+	const navigate = useNavigate();
+
 	const Icon = categoryIconMap[category] ?? categoryIconMap["fallback"];
 
 	return (
@@ -20,13 +23,19 @@ function Breadcrumb({ category, title }: BreadcrumbProps) {
 			items={[
 				{
 					title: (
-						<HomeOutlined
-							style={{
-								verticalAlign: "middle",
-								fontSize: "16px",
-								color: "#555555",
-							}}
-						/>
+						<Button
+							size="small"
+							type="text"
+							onClick={() => navigate("/")}
+						>
+							<HomeOutlined
+								style={{
+									verticalAlign: "middle",
+									fontSize: "16px",
+									color: "#555555",
+								}}
+							/>
+						</Button>
 					),
 				},
 				{

@@ -57,30 +57,28 @@ function ProductImageGallery({
 	return (
 		<Flex gap="middle">
 			{product.images.map((img) => (
-				<>
-					<Image
-						key={img}
-						width={75}
-						style={{
-							borderRadius: 16,
-							padding: "0.5rem",
-							backgroundColor: "rgba(0,0,0,0.05)",
-							objectFit: "cover",
-							display: "inline-block",
-							aspectRatio: 1,
-							cursor: "pointer",
-							outline:
-								img === selectedImageUrl ?
-									"1px solid var(--color-primary)"
-								:	"",
-						}}
-						preview={false}
-						alt={product.title}
-						src={img ?? ""}
-						loading="lazy"
-						onClick={() => setSelectedImageUrl(img)}
-					/>
-				</>
+				<Image
+					key={img}
+					width={75}
+					style={{
+						borderRadius: 16,
+						padding: "0.5rem",
+						backgroundColor: "rgba(0,0,0,0.05)",
+						objectFit: "cover",
+						display: "inline-block",
+						aspectRatio: 1,
+						cursor: "pointer",
+						outline:
+							img === selectedImageUrl ?
+								"1px solid var(--color-primary)"
+							:	"",
+					}}
+					preview={false}
+					alt={product.title}
+					src={img ?? ""}
+					loading="lazy"
+					onClick={() => setSelectedImageUrl(img)}
+				/>
 			))}
 		</Flex>
 	);

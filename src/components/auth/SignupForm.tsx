@@ -50,7 +50,7 @@ function SignupForm() {
 
 		const emailFieldValue = watch("email");
 
-		const users = getLocalStorageData<User[]>("e-com-users", "[]");
+		const users = getLocalStorageData<User[]>("e-com-users", []);
 
 		const userExist = users.find((user) => user.email === emailFieldValue);
 		if (userExist) {
@@ -92,7 +92,7 @@ function SignupForm() {
 			country: data.country,
 		};
 
-		const users = getLocalStorageData<User[]>("e-com-users", "[]");
+		const users = getLocalStorageData<User[]>("e-com-users", []);
 		users.push(user);
 
 		setLocalStorageData("e-com-users", users);

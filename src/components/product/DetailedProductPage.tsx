@@ -1,22 +1,25 @@
+import { useProducts } from "@/context/productsContext.tsx";
 import { Flex, Row } from "antd";
-import type { DetailedProduct } from "../../types/product.types.ts";
+import { useParams } from "react-router";
 import Breadcrumb from "../ui/Breadcrumb.tsx";
 import ProductDetailsContainer from "./ProductDetailsContainer.tsx";
 import ProductImageContainer from "./ProductImageContainer.tsx";
 
-interface DetailedProductModalProps {
-	product: DetailedProduct | undefined;
-}
+function DetailedProductPage() {
+	const { productId } = useParams();
+	const { products } = useProducts();
 
-function DetailedProductModal({ product }: DetailedProductModalProps) {
+	if (!productId) return;
+
+	const product = products.find((p) => p.id === +productId);
+
 	if (!product) return;
-
-	console.log(product);
 
 	return (
 		<Flex
 			vertical
 			gap="medium"
+			style={{ padding: "16px" }}
 		>
 			<Breadcrumb
 				category={product.category}
@@ -32,4 +35,4 @@ function DetailedProductModal({ product }: DetailedProductModalProps) {
 	);
 }
 
-export default DetailedProductModal;
+export default DetailedProductPage;

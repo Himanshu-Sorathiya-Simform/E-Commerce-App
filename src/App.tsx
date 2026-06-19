@@ -1,6 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import SigninForm from "./components/auth/SigninForm.tsx";
 import SignupForm from "./components/auth/SignupForm.tsx";
+import Content from "./components/content/Content.tsx";
+import DetailedProductModal from "./components/product/DetailedProductPage.tsx";
 import AppLayout from "./layouts/AppLayout.tsx";
 import AuthLayout from "./layouts/AuthLayout.tsx";
 import RootLayout from "./layouts/RootLayout.tsx";
@@ -14,8 +16,17 @@ const router = createBrowserRouter([
 				element: <ProtectedRoute />,
 				children: [
 					{
-						index: true,
 						element: <AppLayout />,
+						children: [
+							{
+								index: true,
+								element: <Content />,
+							},
+							{
+								path: ":productId",
+								element: <DetailedProductModal />,
+							},
+						],
 					},
 				],
 			},

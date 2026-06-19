@@ -1,5 +1,6 @@
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Badge, Button, Card, Flex, Image, Skeleton, Typography } from "antd";
+import type { NavigateFunction } from "react-router";
 import type { DetailedProduct } from "../../types/product.types.ts";
 import StarRating from "../ui/StarRating.tsx";
 
@@ -8,15 +9,15 @@ const { Title, Text, Paragraph } = Typography;
 interface ProductCardProps {
 	product: DetailedProduct;
 	cartQuantity: number;
-	onSelectItem: (data: DetailedProduct) => void;
 	addToCart: (productId: number) => void;
+	navigate: NavigateFunction;
 }
 
 function ProductCard({
 	product,
 	cartQuantity,
-	onSelectItem,
 	addToCart,
+	navigate,
 }: ProductCardProps) {
 	return (
 		<Card
@@ -26,7 +27,7 @@ function ProductCard({
 				borderRadius: 24,
 				cursor: "pointer",
 			}}
-			onClick={() => onSelectItem(product)}
+			onClick={() => navigate(`/${product.id}`)}
 			cover={
 				<Flex
 					justify="center"

@@ -33,7 +33,7 @@ function SigninForm() {
 
 	const onSubmit: SubmitHandler<SigninSchema> = function (data: SigninSchema) {
 		const { email, password } = data;
-		const users = getLocalStorageData<User[]>("e-com-users", "[]");
+		const users = getLocalStorageData<User[]>("e-com-users", []);
 
 		const user = users.find((user) => user.email === email);
 		if (!user) {
