@@ -41,7 +41,12 @@ function HeaderPrimary({ openCartDrawer }: HeaderPrimaryProps) {
 						},
 					}}
 				>
-					<Input placeholder="Search Product" />
+					<Input
+						style={{
+							width: "100%",
+						}}
+						placeholder="Search Product"
+					/>
 				</ConfigProvider>
 			</Flex>
 
