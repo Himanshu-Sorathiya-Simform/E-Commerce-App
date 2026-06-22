@@ -19,11 +19,7 @@ interface AuthContext {
 	setUser: Dispatch<SetStateAction<User | null>>;
 }
 
-const AuthContext = createContext<AuthContext>({
-	isAuthenticated: false,
-	user: null,
-	setUser: () => {},
-});
+const AuthContext = createContext<AuthContext | null>(null);
 
 function AuthProvider({ children }: AuthProviderProps) {
 	const [user, setUser] = useState(() =>

@@ -1,17 +1,9 @@
-interface User {
-	city: string;
-	country: string;
-	dateOfBirth: Date;
-	email: string;
-	firstName: string;
-	gender: string;
-	landmark: string;
-	lastName: string;
-	password: string;
-	phoneNumber: string;
-	state: string;
-	street: string;
-	zip: string;
-}
+import type { signupSchema } from "@/schemas/SignupSchema.ts";
+import z from "zod";
+
+type User = Omit<
+	z.infer<typeof signupSchema>,
+	"confirmPassword" | "termsAndConditions"
+>;
 
 export type { User };
