@@ -1,26 +1,43 @@
-import { Layout, Typography } from "antd";
+import { Button, Flex, Layout, Typography } from "antd";
 
 const { Footer: FooterAntD } = Layout;
 const { Paragraph } = Typography;
 
-function Footer() {
+interface FooterProps {
+	focus: () => void;
+}
+
+function Footer({ focus }: FooterProps) {
 	return (
 		<FooterAntD
 			style={{
 				backgroundColor: "white",
 				borderTop: "1px solid #ddd",
-				padding: "0.5rem 0",
+				padding: "0.5rem",
 			}}
 		>
-			<Paragraph
-				style={{
-					margin: 0,
-					textAlign: "center",
-					fontSize: "1rem",
-				}}
+			<Flex
+				justify="center"
+				align="center"
+				gap="large"
 			>
-				{new Date().getFullYear()} &copy; All rights reserved.
-			</Paragraph>
+				<Paragraph
+					style={{
+						margin: "0 0 0 0",
+						textAlign: "center",
+						fontSize: "1rem",
+					}}
+				>
+					{new Date().getFullYear()} &copy; All rights reserved.
+				</Paragraph>
+
+				<Button
+					type="default"
+					onClick={focus}
+				>
+					Focus on Search
+				</Button>
+			</Flex>
 		</FooterAntD>
 	);
 }

@@ -1,6 +1,6 @@
 import Footer from "@/components/footer/Footer.tsx";
-import { ConfigProvider, Drawer, Flex } from "antd";
-import { useState } from "react";
+import { type InputRef, ConfigProvider, Drawer, Flex } from "antd";
+import { useRef, useState } from "react";
 import { Outlet } from "react-router";
 import CartInformation from "../components/cart/CartInformation.tsx";
 import Header from "../components/header/Header.tsx";
@@ -10,10 +10,16 @@ import CategoriesProvider from "../context/categoriesContext.tsx";
 import ProductsProvider from "../context/productsContext.tsx";
 
 function AppLayout() {
+	const inputRef = useRef<InputRef>(null);
+
 	const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
 
 	function openCartDrawer() {
 		setCartDrawerOpen(true);
+	}
+
+	function focus() {
+		inputRef?.current?.focus();
 	}
 
 	return (
@@ -50,7 +56,10 @@ function AppLayout() {
 									overflow: "hidden",
 								}}
 							>
-								<Header openCartDrawer={openCartDrawer} />
+								<Header
+									inputRef={inputRef}
+									openCartDrawer={openCartDrawer}
+								/>
 
 								<Flex
 									style={{
@@ -64,7 +73,7 @@ function AppLayout() {
 									<Outlet />
 								</Flex>
 
-								<Footer />
+								<Footer focus={focus} />
 							</Flex>
 						</Flex>
 

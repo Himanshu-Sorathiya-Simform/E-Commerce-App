@@ -1,12 +1,14 @@
 import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
-import { Badge, Button, ConfigProvider, Flex, Input } from "antd";
+import { type InputRef, Badge, Button, ConfigProvider, Flex, Input } from "antd";
+import type { RefObject } from "react";
 import { useCart } from "../../context/cartContext.tsx";
 
 interface HeaderPrimaryProps {
+	inputRef: RefObject<InputRef | null>;
 	openCartDrawer: () => void;
 }
 
-function HeaderPrimary({ openCartDrawer }: HeaderPrimaryProps) {
+function HeaderPrimary({ inputRef, openCartDrawer }: HeaderPrimaryProps) {
 	const { totalItems } = useCart();
 
 	return (
@@ -42,6 +44,7 @@ function HeaderPrimary({ openCartDrawer }: HeaderPrimaryProps) {
 					}}
 				>
 					<Input
+						ref={inputRef}
 						style={{
 							width: "100%",
 						}}
