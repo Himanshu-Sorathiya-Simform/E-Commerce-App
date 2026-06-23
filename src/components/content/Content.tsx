@@ -4,6 +4,7 @@ import { useCart } from "../../context/cartContext.tsx";
 import { useProducts } from "../../context/productsContext.tsx";
 import ProductCard from "../product/ProductCard.tsx";
 import ProductCardSkeleton from "../product/ProductCardSkeleton.tsx";
+import ContentHeader from "./ContentHeader.tsx";
 
 const { Content: ContentAntD } = Layout;
 
@@ -42,6 +43,8 @@ function Content() {
 					padding: "1rem 3rem 0rem",
 				}}
 			>
+				<ContentHeader />
+
 				<div
 					style={{
 						display: "grid",

@@ -17,6 +17,7 @@ function HeaderPrimary({ openCartDrawer }: HeaderPrimaryProps) {
 			style={{
 				backgroundColor: "var(--color-secondary)",
 				maxWidth: 1280,
+				width: "100%",
 				margin: "0 auto",
 				padding: 16,
 				fontSize: 18,
@@ -26,7 +27,7 @@ function HeaderPrimary({ openCartDrawer }: HeaderPrimaryProps) {
 				<ShoppingCartOutlined />
 			</div>
 
-			<Flex style={{ flex: 1 }}>
+			<Flex style={{ width: "100%" }}>
 				<ConfigProvider
 					theme={{
 						components: {
@@ -35,8 +36,6 @@ function HeaderPrimary({ openCartDrawer }: HeaderPrimaryProps) {
 								inputFontSize: 16,
 								paddingBlock: 10,
 								paddingInline: 16,
-								activeBorderColor: "var(--color-primary)",
-								hoverBorderColor: "var(--color-primary)",
 							},
 						},
 					}}
