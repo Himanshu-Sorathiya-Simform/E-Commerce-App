@@ -1,6 +1,6 @@
 import { ConfigProvider, Flex, Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
-import { useLocation, useNavigate, useParams, useSearchParams } from "react-router";
+import { useNavigate, useParams, useSearchParams } from "react-router";
 import { categoryIconMap } from "../../constants/categoryIcons.ts";
 import { useCategories } from "../../context/categoriesContext.tsx";
 import { formatCategory } from "../../utils/categoryUtils.ts";
@@ -12,7 +12,6 @@ interface SidebarProps {
 
 function Sidebar({ collapsed }: SidebarProps) {
 	const navigate = useNavigate();
-	const location = useLocation();
 	const [, setSearchParams] = useSearchParams();
 	const { category: currentCategory = "", productId } = useParams();
 
@@ -20,12 +19,12 @@ function Sidebar({ collapsed }: SidebarProps) {
 
 	function handleCategoryClick(clickedCategory: string) {
 		if (currentCategory === clickedCategory && !productId) {
-			navigate(`/${location.search}`);
+			navigate(`/`);
 
 			return;
 		}
 
-		navigate(`/${clickedCategory}/${location.search}`);
+		navigate(`/${clickedCategory}`);
 
 		setSearchParams((prev) => ({ ...prev, pageIndex: 1 }));
 	}

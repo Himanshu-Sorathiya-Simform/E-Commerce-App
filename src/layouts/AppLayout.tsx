@@ -1,3 +1,4 @@
+import ErrorBoundary from "@/components/ui/ErrorBoundary.tsx";
 import { ConfigProvider, Drawer, Flex } from "antd";
 import { useState } from "react";
 import { Outlet } from "react-router";
@@ -16,69 +17,75 @@ function AppLayout() {
 	}
 
 	return (
-		<CategoriesProvider>
-			<ProductsProvider>
-				<CartProvider>
-					<ConfigProvider
-						theme={{
-							token: {
-								colorPrimary: "#003d29",
-								fontFamily:
-									'"General Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-							},
-							components: {
-								Layout: {
-									headerBg: "var(--color-secondary)",
-									footerBg: "var(--color-secondary)",
-									headerPadding: 0,
-									headerHeight: "auto",
+		<ErrorBoundary fallback={"An unknown Error occur"}>
+			<CategoriesProvider>
+				<ProductsProvider>
+					<CartProvider>
+						<ConfigProvider
+							theme={{
+								token: {
+									colorPrimary: "#003d29",
+									fontFamily:
+										'"General Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
 								},
-							},
-						}}
-					>
-						<Flex
-							vertical
-							style={{
-								width: "100%",
+								components: {
+									Layout: {
+										headerBg: "var(--color-secondary)",
+										footerBg: "var(--color-secondary)",
+										headerPadding: 0,
+										headerHeight: "auto",
+									},
+								},
 							}}
 						>
 							<Flex
 								vertical
 								style={{
-									height: "100vh",
-									overflow: "hidden",
+									width: "100%",
 								}}
 							>
-								<Header openCartDrawer={openCartDrawer} />
-
 								<Flex
+									vertical
 									style={{
-										height: "100%",
-										position: "relative",
+										height: "100vh",
 										overflow: "hidden",
 									}}
 								>
-									<Sidebar collapsed={false} />
+									<Header openCartDrawer={openCartDrawer} />
 
-									<Outlet />
+									<Flex
+										style={{
+											height: "100%",
+											position: "relative",
+											overflow: "hidden",
+										}}
+									>
+										<Sidebar collapsed={false} />
+
+										<ErrorBoundary
+											fallback={"An unknown Error occur"}
+										>
+											<Outlet />
+										</ErrorBoundary>
+									</Flex>
 								</Flex>
 							</Flex>
-						</Flex>
 
-						<Drawer
-							title="Your Cart"
-							placement="right"
-							size={"30%"}
-							open={cartDrawerOpen}
-							onClose={() => setCartDrawerOpen(false)}
-							mask={{ blur: true }}
-						>
-							<CartInformation />
-						</Drawer>
-					</ConfigProvider>
-				</CartProvider>
-			</ProductsProvider>
-		</CategoriesProvider>
+							<Drawer
+								title="Your Cart"
+								placement="right"
+								size={"30%"}
+								open={cartDrawerOpen}
+								onClose={() => setCartDrawerOpen(false)}
+								mask={{ blur: true }}
+							>
+								<CartInformation />
+							</Drawer>
+						</ConfigProvider>
+					</CartProvider>
+				</ProductsProvider>
+			</CategoriesProvider>
+		</ErrorBoundary>
 	);
 }
 

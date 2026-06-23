@@ -2,6 +2,7 @@ import SigninForm from "@/components/auth/SigninForm.tsx";
 import SignupForm from "@/components/auth/SignupForm.tsx";
 import Content from "@/components/content/Content.tsx";
 import DetailedProductPage from "@/components/product/DetailedProductPage.tsx";
+import ErrorBoundary from "@/components/ui/ErrorBoundary.tsx";
 import AppLayout from "@/layouts/AppLayout.tsx";
 import AuthLayout from "@/layouts/AuthLayout.tsx";
 import RootLayout from "@/layouts/RootLayout.tsx";
@@ -20,11 +21,23 @@ const router = createBrowserRouter([
 						children: [
 							{
 								index: true,
-								element: <Content />,
+								element: (
+									<ErrorBoundary
+										fallback={"An Error occur in Content"}
+									>
+										<Content />
+									</ErrorBoundary>
+								),
 							},
 							{
 								path: ":category",
-								element: <Content />,
+								element: (
+									<ErrorBoundary
+										fallback={"An Error occur in Content"}
+									>
+										<Content />
+									</ErrorBoundary>
+								),
 							},
 							{
 								path: ":category/:productId",

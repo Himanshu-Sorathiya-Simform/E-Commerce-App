@@ -27,6 +27,11 @@ function ProductCard({
 				borderRadius: 24,
 				cursor: "pointer",
 			}}
+			styles={{
+				body: {
+					padding: "0px 12px 12px",
+				},
+			}}
 			onClick={() => navigate(`/${product.category}/${product.id}`)}
 			cover={
 				<Flex
@@ -73,11 +78,6 @@ function ProductCard({
 					/>
 				</Flex>
 			}
-			styles={{
-				body: {
-					padding: "0px 12px 12px",
-				},
-			}}
 		>
 			<Flex
 				vertical
