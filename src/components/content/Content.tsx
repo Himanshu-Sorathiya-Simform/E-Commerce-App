@@ -31,7 +31,6 @@ function Content() {
 				height: "100%",
 				position: "relative",
 				backgroundColor: "#f2f2f2",
-				padding: "2rem 0rem",
 			}}
 		>
 			<Flex
@@ -40,7 +39,7 @@ function Content() {
 				style={{
 					height: "100%",
 					overflowY: "scroll",
-					padding: "0rem 3rem",
+					padding: "1rem 3rem 0rem",
 				}}
 			>
 				<div
@@ -81,6 +80,7 @@ function Content() {
 					total={totalItems}
 					style={{
 						marginTop: "auto",
+						padding: "0rem 3rem 1rem",
 					}}
 					onChange={onPaginationChange}
 				/>

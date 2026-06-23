@@ -1,3 +1,4 @@
+import Footer from "@/components/footer/Footer.tsx";
 import { ConfigProvider, Drawer, Flex } from "antd";
 import { useState } from "react";
 import { Outlet } from "react-router";
@@ -62,6 +63,8 @@ function AppLayout() {
 
 									<Outlet />
 								</Flex>
+
+								<Footer />
 							</Flex>
 						</Flex>
 

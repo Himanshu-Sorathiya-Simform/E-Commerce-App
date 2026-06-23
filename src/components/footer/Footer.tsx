@@ -1,33 +1,26 @@
-import { Flex, Layout } from "antd";
-import FooterDescription from "./FooterDescription.tsx";
-import FooterNavigation from "./FooterNavigation.tsx";
+import { Layout, Typography } from "antd";
 
 const { Footer: FooterAntD } = Layout;
+const { Paragraph } = Typography;
 
 function Footer() {
 	return (
 		<FooterAntD
 			style={{
 				backgroundColor: "white",
-				position: "relative",
 				borderTop: "1px solid #ddd",
+				padding: "0.5rem 0",
 			}}
 		>
-			<div
+			<Paragraph
 				style={{
-					maxWidth: 1152,
-					margin: "0 auto",
+					margin: 0,
+					textAlign: "center",
+					fontSize: "1rem",
 				}}
 			>
-				<Flex
-					gap="medium"
-					justify="space-between"
-				>
-					<FooterDescription />
-
-					<FooterNavigation />
-				</Flex>
-			</div>
+				{new Date().getFullYear()} &copy; All rights reserved.
+			</Paragraph>
 		</FooterAntD>
 	);
 }
