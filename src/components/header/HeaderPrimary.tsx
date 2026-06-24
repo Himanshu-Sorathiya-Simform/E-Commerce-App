@@ -1,5 +1,7 @@
 import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
 import { Badge, Button, ConfigProvider, Flex, Input } from "antd";
+import type { ChangeEvent } from "react";
+import { useLocation, useNavigate, useSearchParams } from "react-router";
 import { useCart } from "../../context/cartContext.tsx";
 
 interface HeaderPrimaryProps {
@@ -7,7 +9,29 @@ interface HeaderPrimaryProps {
 }
 
 function HeaderPrimary({ openCartDrawer }: HeaderPrimaryProps) {
+	const [searchParams, setSearchParams] = useSearchParams();
+	const navigate = useNavigate();
+	const location = useLocation();
+
 	const { totalItems } = useCart();
+
+	function handleSearchQuery(e: ChangeEvent<HTMLInputElement, HTMLInputElement>) {
+		const value = e.target.value.trim();
+
+		const newParams = new URLSearchParams(searchParams);
+
+		if (!value) {
+			newParams.delete("searchQuery");
+		} else {
+			newParams.set("searchQuery", value);
+		}
+
+		if (location.pathname !== "/") {
+			navigate(`/?${newParams.toString()}`);
+		} else {
+			setSearchParams(newParams);
+		}
+	}
 
 	return (
 		<Flex
@@ -45,6 +69,7 @@ function HeaderPrimary({ openCartDrawer }: HeaderPrimaryProps) {
 							width: "100%",
 						}}
 						placeholder="Search Product"
+						onChange={handleSearchQuery}
 					/>
 				</ConfigProvider>
 			</Flex>

@@ -16,6 +16,7 @@ type FilterOptions = {
 	category?: string | null | undefined;
 	pageSize?: string | null | undefined;
 	pageIndex?: string | null | undefined;
+	searchQuery?: string | null | undefined;
 };
 
 async function fetchProduct(productId: string) {
@@ -41,12 +42,24 @@ async function fetchProducts(filterOptions?: FilterOptions) {
 	const category = filterOptions?.category;
 
 	const limit = filterOptions?.pageSize ? +filterOptions?.pageSize : 20;
-	const index = filterOptions?.pageIndex ? +filterOptions?.pageIndex : 0;
+	const index = filterOptions?.pageIndex ? +filterOptions?.pageIndex : 1;
 	const skip = (index - 1) * limit;
 
-	const basePath = category ? `/products/category/${category}` : "/products";
+	const searchQuery = filterOptions?.searchQuery ? filterOptions.searchQuery : "";
 
-	const url = `${basePath}?limit=${limit}&skip=${skip}`;
+	let basePath = "/products";
+	if (searchQuery) {
+		basePath = "/products/search";
+	} else if (category) {
+		basePath = `/products/category/${category}`;
+	}
+
+	let queryParams = `limit=${limit}&skip=${skip}`;
+	if (searchQuery) {
+		queryParams += `&q=${encodeURIComponent(searchQuery)}`;
+	}
+
+	const url = `${basePath}?${queryParams}`;
 
 	try {
 		const res = await api.get<FetchProductsResponse>(url);

@@ -31,6 +31,7 @@ function ProductsProvider({ children }: ProductsProviderProps) {
 	const [searchParams] = useSearchParams();
 	const pageIndex = searchParams.get("pageIndex");
 	const pageSize = searchParams.get("pageSize");
+	const searchQuery = searchParams.get("searchQuery");
 
 	const [products, setProducts] = useState<DetailedProduct[]>([]);
 	const [totalItems, setTotalItems] = useState(0);
@@ -44,6 +45,7 @@ function ProductsProvider({ children }: ProductsProviderProps) {
 				category,
 				pageSize,
 				pageIndex,
+				searchQuery,
 			});
 
 			if (!data) return;
@@ -56,7 +58,7 @@ function ProductsProvider({ children }: ProductsProviderProps) {
 		}
 
 		loadProducts();
-	}, [category, pageIndex, pageSize]);
+	}, [category, pageIndex, pageSize, searchQuery]);
 
 	const ctxValue = { products, isLoading, totalItems };
 
