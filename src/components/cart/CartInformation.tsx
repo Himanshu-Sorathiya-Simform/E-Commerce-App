@@ -1,7 +1,7 @@
+import { useGetProductsQuery } from "@/services/apiSlice.ts";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { Button, Flex, Typography } from "antd";
 import { useCart } from "../../context/cartContext.tsx";
-import { useProducts } from "../../context/productsContext.tsx";
 import type { Cart } from "../../types/cart.types.ts";
 import type { DetailedProduct } from "../../types/product.types.ts";
 import CartItem from "./CartItem.tsx";
@@ -9,14 +9,19 @@ import CartItem from "./CartItem.tsx";
 const { Paragraph, Text } = Typography;
 
 function CartInformation() {
+	const { data } = useGetProductsQuery({
+		pageSize: "0",
+	});
+
 	const { cart } = useCart();
-	const { products } = useProducts();
 
 	const cartProducts = cart.map(
 		(cartItem): (DetailedProduct & Cart) | undefined => {
-			const product = products.find(
-				(product) => product.id === cartItem.productId,
-			);
+			const product =
+				data
+				&& data.products.find(
+					(product) => product.id === cartItem.productId,
+				);
 
 			if (!product) return;
 

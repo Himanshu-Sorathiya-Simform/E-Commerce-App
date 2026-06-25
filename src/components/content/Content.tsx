@@ -1,7 +1,7 @@
+import { useGetProductsQuery } from "@/services/apiSlice.ts";
 import { type PaginationProps, Flex, Layout, Pagination } from "antd";
-import { useNavigate, useSearchParams } from "react-router";
+import { useNavigate, useParams, useSearchParams } from "react-router";
 import { useCart } from "../../context/cartContext.tsx";
-import { useProducts } from "../../context/productsContext.tsx";
 import ProductCard from "../product/ProductCard.tsx";
 import ProductCardSkeleton from "../product/ProductCardSkeleton.tsx";
 import ContentHeader from "./ContentHeader.tsx";
@@ -10,13 +10,21 @@ const { Content: ContentAntD } = Layout;
 
 function Content() {
 	const navigate = useNavigate();
+	const { category } = useParams();
 
 	const [searchParams, setSearchParams] = useSearchParams();
 	const pageIndex = searchParams.get("pageIndex");
 	const pageSize = searchParams.get("pageSize");
+	const searchQuery = searchParams.get("searchQuery");
 
-	const { products, isLoading, totalItems } = useProducts();
 	const { cart, addToCart } = useCart();
+
+	const { data, isFetching } = useGetProductsQuery({
+		category,
+		pageSize,
+		pageIndex,
+		searchQuery,
+	});
 
 	const onPaginationChange: PaginationProps["onChange"] = (
 		pageIndex,
@@ -53,11 +61,12 @@ function Content() {
 						position: "relative",
 					}}
 				>
-					{isLoading ?
+					{isFetching ?
 						Array.from({ length: pageSize ? +pageSize : 20 }).map(
 							(_, i) => <ProductCardSkeleton key={i} />,
 						)
-					:	products.map((product) => {
+					:	data
+						&& data.products.map((product) => {
 							const cartItem = cart.find(
 								(c) => c.productId === product.id,
 							);
@@ -80,7 +89,7 @@ function Content() {
 					showSizeChanger
 					current={pageIndex ? +pageIndex : 0}
 					pageSize={pageSize ? +pageSize : 20}
-					total={totalItems}
+					total={(data && data.total) ?? 0}
 					style={{
 						marginTop: "auto",
 						padding: "0rem 3rem 1rem",

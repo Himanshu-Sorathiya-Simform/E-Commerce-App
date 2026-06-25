@@ -7,6 +7,7 @@ import {
 } from "./productApi.ts";
 
 const apiSlice = createApi({
+	reducerPath: "api",
 	baseQuery: axiosBaseQuery(),
 	endpoints: (build) => ({
 		getProducts: build.query<FetchProductsResponse, FilterOptions>({
@@ -16,3 +17,4 @@ const apiSlice = createApi({
 });
 
 export { apiSlice };
+export const { useGetProductsQuery } = apiSlice;
