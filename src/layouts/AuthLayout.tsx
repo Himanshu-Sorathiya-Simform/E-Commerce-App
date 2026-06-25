@@ -1,10 +1,10 @@
-import { useAuth } from "@/context/authContext.tsx";
+import { useAppSelector } from "@/hooks/hooks.ts";
 import { Navigate, Outlet } from "react-router";
 
 function AuthLayout() {
-	const { isAuthenticated } = useAuth();
+	const { user } = useAppSelector((state) => state.auth);
 
-	if (isAuthenticated) return <Navigate to="/" />;
+	if (user) return <Navigate to="/" />;
 
 	return (
 		<section className="w-full max-w-xl min-w-md">

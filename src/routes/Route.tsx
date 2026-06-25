@@ -1,10 +1,10 @@
-import { useAuth } from "@/context/authContext.tsx";
+import { useAppSelector } from "@/hooks/hooks.ts";
 import { Navigate, Outlet } from "react-router";
 
 function ProtectedRoute() {
-	const { isAuthenticated } = useAuth();
+	const { user } = useAppSelector((state) => state.auth);
 
-	if (!isAuthenticated) {
+	if (!user) {
 		return (
 			<Navigate
 				to="/signin"
@@ -17,9 +17,9 @@ function ProtectedRoute() {
 }
 
 function PublicRoute() {
-	const { isAuthenticated } = useAuth();
+	const { user } = useAppSelector((state) => state.auth);
 
-	if (isAuthenticated) {
+	if (user) {
 		return (
 			<Navigate
 				to="/"

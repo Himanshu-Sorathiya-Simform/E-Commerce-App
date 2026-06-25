@@ -1,6 +1,7 @@
 import { defaultSigninValues } from "@/constants/formDefaults.ts";
-import { useAuth } from "@/context/authContext.tsx";
+import { useAppDispatch } from "@/hooks/hooks.ts";
 import { type SigninSchema, signinSchema } from "@/schemas/SigninSchema.ts";
+import { setUser } from "@/slices/authSlice.ts";
 import type { User } from "@/types/user.types.ts";
 import {
 	getLocalStorageData,
@@ -18,7 +19,8 @@ import InputField from "./fields/InputField.tsx";
 
 function SigninForm() {
 	const navigate = useNavigate();
-	const { setUser } = useAuth();
+
+	const dispatch = useAppDispatch();
 
 	const {
 		register,
@@ -55,7 +57,7 @@ function SigninForm() {
 		}
 
 		setLocalStorageData("e-com-user", user);
-		setUser(user);
+		dispatch(setUser(user));
 
 		navigate("/");
 	};
