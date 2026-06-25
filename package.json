@@ -14,6 +14,7 @@
 		"@ant-design/icons": "~6.2.5",
 		"@fontsource-variable/geist": "^5.2.9",
 		"@himanshu-sorathiya/react-kit": "^1.0.6",
+		"@reduxjs/toolkit": "^2.12.0",
 		"antd": "^6.4.3",
 		"axios": "^1.17.0",
 		"class-variance-authority": "^0.7.1",
