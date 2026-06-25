@@ -1,29 +1,13 @@
-import axios from "axios";
-import type { ApiError } from "../types/axios.types.ts";
+import { type AxiosRequestConfig } from "axios";
 import type { Category } from "../types/category.types.ts";
-import { axiosInstance } from "./axios.ts";
 
 type FetchCategoriesResponse = Category[];
 
-async function fetchCategories() {
-	try {
-		const res = await axiosInstance.get<FetchCategoriesResponse>(
-			"/products/category-list",
-		);
-
-		const { data } = res;
-
-		return data;
-	} catch (error) {
-		if (axios.isAxiosError<ApiError>(error)) {
-			console.error(error.response?.data.message);
-			console.error(error.response?.status);
-
-			return [];
-		} else {
-			throw error;
-		}
-	}
+function buildCategoriesRequest(): AxiosRequestConfig {
+	return {
+		url: "/products/category-list",
+		method: "GET",
+	};
 }
 
-export { fetchCategories };
+export { type FetchCategoriesResponse, buildCategoriesRequest };

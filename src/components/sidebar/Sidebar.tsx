@@ -1,8 +1,8 @@
+import { useGetCategoriesQuery } from "@/services/apiSlice.ts";
 import { ConfigProvider, Flex, Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { useLocation, useNavigate, useParams, useSearchParams } from "react-router";
 import { categoryIconMap } from "../../constants/categoryIcons.ts";
-import { useCategories } from "../../context/categoriesContext.tsx";
 import { formatCategory } from "../../utils/categoryUtils.ts";
 import SidebarItemSkeleton from "./SidebarItemSkeleton.tsx";
 
@@ -16,7 +16,7 @@ function Sidebar({ collapsed }: SidebarProps) {
 	const [, setSearchParams] = useSearchParams();
 	const { category: currentCategory = "", productId } = useParams();
 
-	const { categories, isLoading } = useCategories();
+	const { data: categories, isFetching } = useGetCategoriesQuery();
 
 	function handleCategoryClick(clickedCategory: string) {
 		if (currentCategory === clickedCategory && !productId) {
@@ -58,7 +58,7 @@ function Sidebar({ collapsed }: SidebarProps) {
 					},
 				}}
 			>
-				{isLoading ?
+				{isFetching ?
 					<Flex
 						justify="center"
 						vertical
@@ -74,7 +74,7 @@ function Sidebar({ collapsed }: SidebarProps) {
 						style={{ height: "100%" }}
 						tooltip={{ placement: "right" }}
 						selectedKeys={[currentCategory]}
-						items={categories.map((category) => {
+						items={(categories ?? []).map((category) => {
 							const Icon =
 								categoryIconMap[category]
 								?? categoryIconMap["fallback"];

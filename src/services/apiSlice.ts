@@ -1,6 +1,10 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { axiosBaseQuery } from "./axios.ts";
 import {
+	type FetchCategoriesResponse,
+	buildCategoriesRequest,
+} from "./categoryApi.ts";
+import {
 	type FetchProductResponse,
 	type FetchProductsResponse,
 	type FilterOptions,
@@ -18,8 +22,12 @@ const apiSlice = createApi({
 		getProduct: build.query<FetchProductResponse, string>({
 			query: (productId) => buildProductRequest(productId),
 		}),
+		getCategories: build.query<FetchCategoriesResponse, void>({
+			query: () => buildCategoriesRequest(),
+		}),
 	}),
 });
 
 export { apiSlice };
-export const { useGetProductsQuery, useGetProductQuery } = apiSlice;
+export const { useGetProductsQuery, useGetProductQuery, useGetCategoriesQuery } =
+	apiSlice;

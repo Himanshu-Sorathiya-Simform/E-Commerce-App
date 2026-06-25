@@ -6,7 +6,6 @@ import CartInformation from "../components/cart/CartInformation.tsx";
 import Header from "../components/header/Header.tsx";
 import Sidebar from "../components/sidebar/Sidebar.tsx";
 import CartProvider from "../context/cartContext.tsx";
-import CategoriesProvider from "../context/categoriesContext.tsx";
 
 function AppLayout() {
 	const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
@@ -16,69 +15,67 @@ function AppLayout() {
 	}
 
 	return (
-		<CategoriesProvider>
-			<CartProvider>
-				<ConfigProvider
-					theme={{
-						token: {
-							colorPrimary: "#003d29",
-							fontFamily:
-								'"General Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+		<CartProvider>
+			<ConfigProvider
+				theme={{
+					token: {
+						colorPrimary: "#003d29",
+						fontFamily:
+							'"General Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+					},
+					components: {
+						Layout: {
+							headerBg: "var(--color-secondary)",
+							footerBg: "var(--color-secondary)",
+							headerPadding: 0,
+							headerHeight: "auto",
 						},
-						components: {
-							Layout: {
-								headerBg: "var(--color-secondary)",
-								footerBg: "var(--color-secondary)",
-								headerPadding: 0,
-								headerHeight: "auto",
-							},
-						},
+					},
+				}}
+			>
+				<Flex
+					vertical
+					style={{
+						width: "100%",
 					}}
 				>
 					<Flex
 						vertical
 						style={{
-							width: "100%",
+							height: "100vh",
+							overflow: "hidden",
 						}}
 					>
+						<Header openCartDrawer={openCartDrawer} />
+
 						<Flex
-							vertical
 							style={{
-								height: "100vh",
+								height: "100%",
+								position: "relative",
 								overflow: "hidden",
 							}}
 						>
-							<Header openCartDrawer={openCartDrawer} />
+							<Sidebar collapsed={false} />
 
-							<Flex
-								style={{
-									height: "100%",
-									position: "relative",
-									overflow: "hidden",
-								}}
-							>
-								<Sidebar collapsed={false} />
-
-								<Outlet />
-							</Flex>
-
-							<Footer />
+							<Outlet />
 						</Flex>
-					</Flex>
 
-					<Drawer
-						title="Your Cart"
-						placement="right"
-						size={"30%"}
-						open={cartDrawerOpen}
-						onClose={() => setCartDrawerOpen(false)}
-						mask={{ blur: true }}
-					>
-						<CartInformation />
-					</Drawer>
-				</ConfigProvider>
-			</CartProvider>
-		</CategoriesProvider>
+						<Footer />
+					</Flex>
+				</Flex>
+
+				<Drawer
+					title="Your Cart"
+					placement="right"
+					size={"30%"}
+					open={cartDrawerOpen}
+					onClose={() => setCartDrawerOpen(false)}
+					mask={{ blur: true }}
+				>
+					<CartInformation />
+				</Drawer>
+			</ConfigProvider>
+		</CartProvider>
 	);
 }
 
