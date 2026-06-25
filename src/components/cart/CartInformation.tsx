@@ -1,6 +1,6 @@
 import { useGetProductsQuery } from "@/services/apiSlice.ts";
-import { ArrowRightOutlined } from "@ant-design/icons";
-import { Button, Flex, Typography } from "antd";
+import { ArrowRightOutlined, LoadingOutlined } from "@ant-design/icons";
+import { Button, Flex, Spin, Typography } from "antd";
 import { useCart } from "../../context/cartContext.tsx";
 import type { Cart } from "../../types/cart.types.ts";
 import type { DetailedProduct } from "../../types/product.types.ts";
@@ -9,7 +9,7 @@ import CartItem from "./CartItem.tsx";
 const { Paragraph, Text } = Typography;
 
 function CartInformation() {
-	const { data } = useGetProductsQuery({
+	const { data, isFetching } = useGetProductsQuery({
 		pageSize: "0",
 	});
 
@@ -29,6 +29,11 @@ function CartInformation() {
 		},
 	);
 
+	const totalBill = cartProducts.reduce(
+		(acc, curr) => acc + (curr?.price ?? 0) * (curr?.quantity ?? 0),
+		0,
+	);
+
 	if (!cart.length)
 		return (
 			<Paragraph
@@ -41,10 +46,23 @@ function CartInformation() {
 			</Paragraph>
 		);
 
-	const totalBill = cartProducts.reduce(
-		(acc, curr) => acc + (curr?.price ?? 0) * (curr?.quantity ?? 0),
-		0,
-	);
+	if (isFetching)
+		return (
+			<Flex
+				align="center"
+				justify="center"
+				style={{ height: "100%" }}
+			>
+				<Spin
+					indicator={
+						<LoadingOutlined
+							style={{ fontSize: 40 }}
+							spin
+						/>
+					}
+				/>
+			</Flex>
+		);
 
 	return (
 		<Flex
@@ -54,12 +72,16 @@ function CartInformation() {
 				height: "100%",
 			}}
 		>
-			{cartProducts.map((cartProduct) => (
-				<CartItem
-					key={cartProduct?.id}
-					cartProduct={cartProduct}
-				/>
-			))}
+			{cartProducts.map((cartProduct) => {
+				console.log(cartProduct?.id);
+
+				return (
+					<CartItem
+						key={cartProduct?.id}
+						cartProduct={cartProduct}
+					/>
+				);
+			})}
 
 			<Button
 				type="primary"

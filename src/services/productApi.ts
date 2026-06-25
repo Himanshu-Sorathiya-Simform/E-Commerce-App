@@ -1,7 +1,5 @@
-import axios, { type AxiosRequestConfig } from "axios";
-import type { ApiError } from "../types/axios.types.ts";
+import { type AxiosRequestConfig } from "axios";
 import type { DetailedProduct } from "../types/product.types.ts";
-import { axiosInstance } from "./axios.ts";
 
 type FetchProductResponse = DetailedProduct;
 
@@ -19,25 +17,11 @@ type FilterOptions = {
 	searchQuery?: string | null | undefined;
 };
 
-async function fetchProduct(productId: string) {
-	try {
-		const res = await axiosInstance.get<FetchProductResponse>(
-			`/products/${productId}`,
-		);
-
-		const { data } = res;
-
-		return data;
-	} catch (error) {
-		if (axios.isAxiosError<ApiError>(error)) {
-			console.error(error.response?.data.message);
-			console.error(error.response?.status);
-
-			return null;
-		} else {
-			throw error;
-		}
-	}
+function buildProductRequest(productId: string): AxiosRequestConfig {
+	return {
+		url: `/products/${productId}`,
+		method: "GET",
+	};
 }
 
 function buildProductsRequest(filterOptions?: FilterOptions): AxiosRequestConfig {
@@ -68,8 +52,9 @@ function buildProductsRequest(filterOptions?: FilterOptions): AxiosRequestConfig
 }
 
 export {
+	type FetchProductResponse,
 	type FetchProductsResponse,
 	type FilterOptions,
+	buildProductRequest,
 	buildProductsRequest,
-	fetchProduct,
 };
