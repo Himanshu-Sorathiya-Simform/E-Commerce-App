@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios, { type AxiosRequestConfig } from "axios";
 import type { ApiError } from "../types/axios.types.ts";
 import type { DetailedProduct } from "../types/product.types.ts";
-import { api } from "./axios.ts";
+import { axiosInstance } from "./axios.ts";
 
 type FetchProductResponse = DetailedProduct;
 
@@ -21,7 +21,9 @@ type FilterOptions = {
 
 async function fetchProduct(productId: string) {
 	try {
-		const res = await api.get<FetchProductResponse>(`/products/${productId}`);
+		const res = await axiosInstance.get<FetchProductResponse>(
+			`/products/${productId}`,
+		);
 
 		const { data } = res;
 
@@ -38,47 +40,36 @@ async function fetchProduct(productId: string) {
 	}
 }
 
-async function fetchProducts(filterOptions?: FilterOptions) {
+function buildProductsRequest(filterOptions?: FilterOptions): AxiosRequestConfig {
 	const category = filterOptions?.category;
 
-	const limit = filterOptions?.pageSize ? +filterOptions?.pageSize : 20;
-	const index = filterOptions?.pageIndex ? +filterOptions?.pageIndex : 1;
+	const limit = filterOptions?.pageSize ? +filterOptions.pageSize : 20;
+	const index = filterOptions?.pageIndex ? +filterOptions.pageIndex : 1;
 	const skip = (index - 1) * limit;
 
-	const searchQuery = filterOptions?.searchQuery ? filterOptions.searchQuery : "";
+	const searchQuery = filterOptions?.searchQuery || "";
 
 	let basePath = "/products";
+	const params: Record<string, string | number> = { limit, skip };
+
 	if (searchQuery) {
 		basePath = "/products/search";
+
+		params["q"] = searchQuery;
 	} else if (category) {
 		basePath = `/products/category/${category}`;
 	}
 
-	let queryParams = `limit=${limit}&skip=${skip}`;
-	if (searchQuery) {
-		queryParams += `&q=${encodeURIComponent(searchQuery)}`;
-	}
-
-	const url = `${basePath}?${queryParams}`;
-
-	try {
-		const res = await api.get<FetchProductsResponse>(url);
-
-		const {
-			data: { products, total },
-		} = res;
-
-		return { products, totalItems: total };
-	} catch (error) {
-		if (axios.isAxiosError<ApiError>(error)) {
-			console.error(error.response?.data.message);
-			console.error(error.response?.status);
-
-			return null;
-		} else {
-			throw error;
-		}
-	}
+	return {
+		url: basePath,
+		method: "GET",
+		params: params,
+	};
 }
 
-export { fetchProduct, fetchProducts };
+export {
+	type FetchProductsResponse,
+	type FilterOptions,
+	buildProductsRequest,
+	fetchProduct,
+};

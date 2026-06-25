@@ -4,7 +4,7 @@ import axios, {
 	AxiosError,
 } from "axios";
 
-const api: AxiosInstance = axios.create({
+const axiosInstance: AxiosInstance = axios.create({
 	baseURL: "https://dummyjson.com",
 	timeout: 5000,
 });
@@ -12,7 +12,7 @@ const api: AxiosInstance = axios.create({
 function axiosBaseQuery() {
 	return async function (args: AxiosRequestConfig) {
 		try {
-			const result = await api(args);
+			const result = await axiosInstance(args);
 
 			return { data: result.data };
 		} catch (axiosError) {
@@ -28,4 +28,4 @@ function axiosBaseQuery() {
 	};
 }
 
-export { api, axiosBaseQuery };
+export { axiosBaseQuery, axiosInstance };

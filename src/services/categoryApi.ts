@@ -1,13 +1,13 @@
 import axios from "axios";
 import type { ApiError } from "../types/axios.types.ts";
 import type { Category } from "../types/category.types.ts";
-import { api } from "./axios.ts";
+import { axiosInstance } from "./axios.ts";
 
 type FetchCategoriesResponse = Category[];
 
 async function fetchCategories() {
 	try {
-		const res = await api.get<FetchCategoriesResponse>(
+		const res = await axiosInstance.get<FetchCategoriesResponse>(
 			"/products/category-list",
 		);
 
