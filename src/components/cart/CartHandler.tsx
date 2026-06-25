@@ -1,6 +1,7 @@
+import { useAppDispatch } from "@/hooks/hooks.ts";
+import { addToCart, removeFromCart } from "@/slices/cartSlice.ts";
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Space } from "antd";
-import { useCart } from "../../context/cartContext.tsx";
 import type { DetailedProduct } from "../../types/product.types.ts";
 
 const { Compact } = Space;
@@ -16,7 +17,7 @@ function CartHandler({
 	productCartQuantity,
 	size = "large",
 }: CartHandlerProps) {
-	const { addToCart, removeFromCart } = useCart();
+	const dispatch = useAppDispatch();
 
 	return (
 		<Compact>
@@ -26,7 +27,7 @@ function CartHandler({
 					borderStartStartRadius: "9999px",
 					borderEndStartRadius: "9999px",
 				}}
-				onClick={() => removeFromCart(product.id)}
+				onClick={() => dispatch(removeFromCart(product.id))}
 				icon={<MinusOutlined />}
 			/>
 
@@ -49,7 +50,7 @@ function CartHandler({
 					borderStartEndRadius: "9999px",
 					borderEndEndRadius: "9999px",
 				}}
-				onClick={() => addToCart(product.id)}
+				onClick={() => dispatch(addToCart(product.id))}
 				icon={<PlusOutlined />}
 			/>
 		</Compact>

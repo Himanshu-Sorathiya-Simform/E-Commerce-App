@@ -1,7 +1,7 @@
+import { useAppSelector } from "@/hooks/hooks.ts";
 import { useGetProductsQuery } from "@/services/apiSlice.ts";
 import { ArrowRightOutlined, LoadingOutlined } from "@ant-design/icons";
 import { Button, Flex, Spin, Typography } from "antd";
-import { useCart } from "../../context/cartContext.tsx";
 import type { Cart } from "../../types/cart.types.ts";
 import type { DetailedProduct } from "../../types/product.types.ts";
 import CartItem from "./CartItem.tsx";
@@ -13,7 +13,7 @@ function CartInformation() {
 		pageSize: "0",
 	});
 
-	const { cart } = useCart();
+	const { cart } = useAppSelector((state) => state.cart);
 
 	const cartProducts = cart.map(
 		(cartItem): (DetailedProduct & Cart) | undefined => {

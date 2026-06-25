@@ -1,3 +1,5 @@
+import { useAppDispatch } from "@/hooks/hooks.ts";
+import { addToCart } from "@/slices/cartSlice.ts";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Badge, Button, Card, Flex, Image, Skeleton, Typography } from "antd";
 import type { NavigateFunction } from "react-router";
@@ -9,16 +11,12 @@ const { Title, Text, Paragraph } = Typography;
 interface ProductCardProps {
 	product: DetailedProduct;
 	cartQuantity: number;
-	addToCart: (productId: number) => void;
 	navigate: NavigateFunction;
 }
 
-function ProductCard({
-	product,
-	cartQuantity,
-	addToCart,
-	navigate,
-}: ProductCardProps) {
+function ProductCard({ product, cartQuantity, navigate }: ProductCardProps) {
+	const dispatch = useAppDispatch();
+
 	return (
 		<Card
 			style={{
@@ -157,7 +155,7 @@ function ProductCard({
 							onClick={(e) => {
 								e.stopPropagation();
 
-								addToCart(product.id);
+								dispatch(addToCart(product.id));
 							}}
 						>
 							Add to Cart

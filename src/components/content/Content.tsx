@@ -1,7 +1,7 @@
+import { useAppSelector } from "@/hooks/hooks.ts";
 import { useGetProductsQuery } from "@/services/apiSlice.ts";
 import { type PaginationProps, Flex, Layout, Pagination } from "antd";
 import { useNavigate, useParams, useSearchParams } from "react-router";
-import { useCart } from "../../context/cartContext.tsx";
 import ProductCard from "../product/ProductCard.tsx";
 import ProductCardSkeleton from "../product/ProductCardSkeleton.tsx";
 import ContentHeader from "./ContentHeader.tsx";
@@ -17,7 +17,7 @@ function Content() {
 	const pageSize = searchParams.get("pageSize");
 	const searchQuery = searchParams.get("searchQuery");
 
-	const { cart, addToCart } = useCart();
+	const { cart } = useAppSelector((state) => state.cart);
 
 	const { data, isFetching } = useGetProductsQuery({
 		category,
@@ -76,7 +76,6 @@ function Content() {
 									key={product.id}
 									product={product}
 									cartQuantity={cartItem?.quantity ?? 0}
-									addToCart={addToCart}
 									navigate={navigate}
 								/>
 							);

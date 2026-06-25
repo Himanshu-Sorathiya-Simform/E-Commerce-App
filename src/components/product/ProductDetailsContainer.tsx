@@ -1,10 +1,10 @@
+import { useAppSelector } from "@/hooks/hooks.ts";
 import {
 	SecurityScanOutlined,
 	TruckOutlined,
 	UndoOutlined,
 } from "@ant-design/icons";
 import { Button, Col, Divider, Flex, Typography } from "antd";
-import { useCart } from "../../context/cartContext.tsx";
 import type { DetailedProduct } from "../../types/product.types.ts";
 import CartHandler from "../cart/CartHandler.tsx";
 import StarRating from "../ui/StarRating.tsx";
@@ -121,7 +121,7 @@ function ProductPricingInformation({ product }: ProductPricingInformationProps) 
 }
 
 function ProductActions({ product }: ProductActionsProps) {
-	const { cart } = useCart();
+	const { cart } = useAppSelector((state) => state.cart);
 
 	const productCartQuantity =
 		cart.find((c) => c.productId === product.id)?.quantity ?? 0;

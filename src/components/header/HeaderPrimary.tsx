@@ -1,8 +1,8 @@
+import { useAppSelector } from "@/hooks/hooks.ts";
 import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
 import { Badge, Button, ConfigProvider, Flex, Input } from "antd";
 import type { ChangeEvent } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router";
-import { useCart } from "../../context/cartContext.tsx";
 
 interface HeaderPrimaryProps {
 	openCartDrawer: () => void;
@@ -13,7 +13,7 @@ function HeaderPrimary({ openCartDrawer }: HeaderPrimaryProps) {
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	const { totalItems } = useCart();
+	const { cart } = useAppSelector((state) => state.cart);
 
 	function handleSearchQuery(e: ChangeEvent<HTMLInputElement, HTMLInputElement>) {
 		const value = e.target.value.trim();
@@ -32,6 +32,8 @@ function HeaderPrimary({ openCartDrawer }: HeaderPrimaryProps) {
 			setSearchParams(newParams);
 		}
 	}
+
+	const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
 	return (
 		<Flex
