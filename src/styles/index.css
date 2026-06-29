@@ -81,19 +81,6 @@ button {
 	}
 }
 
-.footer-nav-item {
-	transition: all 0.15s ease;
-
-	&:hover {
-		transform: translateX(8px);
-	}
-}
-
-.footer-nav-link {
-	width: 100%;
-	display: inline-block;
-}
-
 @keyframes spin {
 	from {
 		transform: translate(-50%, 3rem) rotate(0deg);
