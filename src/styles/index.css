@@ -106,14 +106,6 @@ body {
 	}
 }
 
-.footer-nav-item {
-	transition: all 0.15s ease;
-
-	&:hover {
-		transform: translateX(8px);
-	}
-}
-
 @keyframes spin {
 	from {
 		transform: translate(-50%, 3rem) rotate(0deg);
