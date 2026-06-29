@@ -5,11 +5,11 @@
 	"tabWidth": 4,
 	"useTabs": true,
 	"singleAttributePerLine": true,
+	"quoteProps": "consistent",
 
 	"semi": true,
 	"singleQuote": false,
 	"jsxSingleQuote": false,
-	"quoteProps": "as-needed",
 	"trailingComma": "all",
 	"bracketSpacing": true,
 	"objectWrap": "preserve",

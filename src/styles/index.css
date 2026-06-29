@@ -1,0 +1,91 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font: inherit;
+}
+
+@font-face {
+	font-family: "General Sans";
+	src: url("../assets/fonts/GeneralSans.ttf") format("truetype");
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	line-height: 1.5;
+	font-family: "General Sans", Arial, Helvetica, sans-serif;
+	font-weight: 500;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	text-wrap: balance;
+}
+
+p,
+li {
+	text-wrap: pretty;
+	max-width: 65ch;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+img,
+svg {
+	display: block;
+	max-width: 100%;
+}
+
+button {
+	outline-color: transparent;
+	background-color: transparent;
+	cursor: pointer;
+	border: none;
+}
+
+:root {
+	--color-primary: #003d29;
+	--color-secondary: #ffffff;
+	--color-muted: #f5f6f6;
+
+	--modal-max-width: 800px;
+}
+
+.line-clamp-3 {
+	overflow: hidden;
+	display: -webkit-box;
+	line-clamp: 3;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
+}
+
+.link {
+	color: #555;
+
+	&:hover {
+		color: var(--color-primary);
+	}
+}
+
+@keyframes spin {
+	from {
+		transform: translate(-50%, 3rem) rotate(0deg);
+	}
+	to {
+		transform: translate(-50%, 3rem) rotate(360deg);
+	}
+}
